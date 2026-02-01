@@ -127,6 +127,58 @@
             background: #055cad; /* Main Blue */
             border-radius: 4px;
         }
+
+        /* Hero Title Motion */
+        .hero-title {
+            width: min(90vw, 900px);
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .hero-title {
+                width: min(80vw, 1100px);
+            }
+        }
+        .title-stroke {
+            fill: transparent;
+            stroke: #ffffff;
+            stroke-width: 6;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+            stroke-dasharray: 1400;
+            stroke-dashoffset: 1400;
+            animation: title-draw 1.2s ease forwards;
+        }
+        .title-fill {
+            opacity: 0;
+            animation: title-fill 0.6s ease forwards;
+        }
+        .title-stroke.fukuoka {
+            animation-delay: 0.3s;
+        }
+        .title-fill.hive {
+            animation-delay: 1.0s;
+        }
+        .title-fill.fukuoka {
+            animation-delay: 1.3s;
+        }
+        @keyframes title-draw {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes title-fill {
+            to { opacity: 1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .title-stroke {
+                animation: none;
+                stroke-dashoffset: 0;
+            }
+            .title-fill {
+                animation: none;
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body class="bg-base-primary text-txt-primary antialiased selection:bg-primary-100 selection:text-primary-900 font-sans tracking-wide">
@@ -136,8 +188,8 @@
         <div class="w-full relative">
             <div class="glass-navy px-4 md:px-8 py-3 md:py-4 flex justify-between items-center transition-all duration-300 shadow-md relative z-50" id="nav-container">
                 <a href="#home" class="flex items-center transition hover:opacity-80">
-                    <!-- Adjusted mobile height from h-8 to h-10 (approx 20-25% larger) -->
-                    <img src="https://i.gyazo.com/03bb3587fff275693855bd13819febad.png" alt="Hive Fukuoka 2026" class="h-10 md:h-12 w-auto object-contain">
+                    <!-- Slightly larger for improved visibility -->
+                    <img src="https://i.gyazo.com/03bb3587fff275693855bd13819febad.png" alt="Hive Fukuoka 2026" class="h-14 md:h-16 w-auto object-contain">
                 </a>
                 
                 <!-- Desktop Nav -->
@@ -203,10 +255,19 @@
 
                     <!-- Main Title (Optimized for Mobile) -->
                     <div class="relative transform transition-transform hover:scale-[1.01] duration-700">
-                        <h1 class="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-none font-montserrat drop-shadow-2xl">
-                            HIVE<br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-br from-white via-primary-100 to-primary-200 filter drop-shadow-lg">FUKUOKA</span>
-                        </h1>
+                        <svg class="hero-title drop-shadow-2xl" viewBox="0 0 1200 420" role="img" aria-label="HIVE FUKUOKA">
+                            <defs>
+                                <linearGradient id="titleGradient" x1="0" x2="1" y1="0" y2="1">
+                                    <stop offset="0%" stop-color="#ffffff" />
+                                    <stop offset="50%" stop-color="#e0eff9" />
+                                    <stop offset="100%" stop-color="#c2def4" />
+                                </linearGradient>
+                            </defs>
+                            <text x="50%" y="165" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="200" class="title-stroke hive">HIVE</text>
+                            <text x="50%" y="165" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="200" fill="#ffffff" class="title-fill hive">HIVE</text>
+                            <text x="50%" y="345" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="200" class="title-stroke fukuoka">FUKUOKA</text>
+                            <text x="50%" y="345" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="900" font-size="200" fill="url(#titleGradient)" class="title-fill fukuoka">FUKUOKA</text>
+                        </svg>
                         <p class="absolute -bottom-3 md:-bottom-8 right-0 md:right-auto md:left-1/2 md:translate-x-[120px] text-3xl sm:text-4xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white/20 to-white/5 z-[-1] font-montserrat select-none">2026</p>
                     </div>
                     
@@ -374,8 +435,10 @@
                                 <div class="w-24 flex-shrink-0 text-xs font-bold text-txt-muted uppercase tracking-wider font-montserrat pt-1">Members</div>
                                 <div>
                                     <p class="text-txt-secondary leading-relaxed text-sm md:text-base">
-                                        東京からの遠征組と、福岡在住のローカル組が交差する。
-                                        多様なバックグラウンドを持つ<span class="text-primary-500 font-bold border-b-2 border-primary-200">熱き50名</span>が集結。
+                                        東京からの遠征組と福岡のローカル組、合わせて50名が一つの宿に集い、二日間を共に過ごします。<br>
+                                        あえて全員が同じ場所に宿泊するのは、朝から晩まで、同じ釜の飯を食べながら思考を止めることなく語り合うため。<br>
+                                        異なる視点を持つ者同士が、寝食を共にする距離感で本音をぶつけ合うということを大切にしています。<br>
+                                        この「濃密な対話の連続」こそが、参加者それぞれの志を研ぎ澄まし、新たな化学反応を創り出します。
                                     </p>
                                 </div>
                             </div>
@@ -491,6 +554,9 @@
                 <div class="text-center mb-12 md:mb-20 reveal">
                     <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">Track Record</span>
                     <h2 class="text-2xl md:text-5xl font-black text-primary-500 mt-3">HIVEの活動実績</h2>
+                    <p class="text-txt-secondary text-xs md:text-sm mt-4 max-w-3xl mx-auto leading-relaxed">
+                        2023年より合宿形式のHive Japan Summitを開始しました。以下では、1年を通した活動の流れが伝わるよう、2025年の取り組みを例として紹介しています。
+                    </p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center mb-16 md:mb-24">
@@ -610,8 +676,8 @@
                                      <div class="text-xs text-primary-500 font-bold tracking-wide uppercase bg-primary-50 px-2 py-1 rounded">Professor</div>
                                  </div>
                                  <h4 class="font-black text-lg md:text-xl text-txt-primary mb-2 group-hover:text-primary-600 transition-colors">各務 茂夫 氏</h4>
-                                 <p class="text-xs md:text-sm text-txt-secondary font-medium">東京大学 大学院工学系研究科 教授</p>
-                             </div>
+                                <p class="text-xs md:text-sm text-txt-secondary font-medium">開志専門職大学 学長<br>東京大学 特命教授</p>
+                            </div>
                              
                              <!-- Advisor 2 -->
                              <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-base-tertiary hover:border-primary-300 hover:shadow-md transition-all duration-300 group">
