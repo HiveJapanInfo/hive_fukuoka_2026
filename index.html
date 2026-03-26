@@ -284,10 +284,6 @@
             animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.72s both;
         }
 
-        .hero-scroll {
-            animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.95s both;
-        }
-
         .poster-line-top,
         .poster-line-bottom {
             transform-origin: center;
@@ -326,16 +322,13 @@
             .hero-subtext,
             .hero-actions,
             .hero-rail,
-            .hero-scroll,
-            .hero-sidepanel,
             .poster-line-top,
             .poster-line-bottom,
             .poster-corner,
             .poster-inner-frame,
             .hero-pan-bg,
             .hero-orbit-ring,
-            .hero-sweep,
-            .animate-dropdown {
+            .hero-sweep {
                 animation: none !important;
                 transform: none !important;
                 filter: none !important;
@@ -495,8 +488,8 @@
             </div>
 
             <div class="relative z-10 mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-                <div class="grid min-h-[100svh] items-end gap-12 pb-10 pt-28 md:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] md:pb-16 md:pt-32 lg:gap-20">
-                    <div class="max-w-3xl">
+                <div class="grid min-h-[100svh] gap-12 pb-10 pt-28 md:pb-16 md:pt-32">
+                    <div class="max-w-5xl">
                         <div class="hero-badge inline-flex items-center gap-2 rounded-full border border-primary-100 bg-white px-4 py-2 shadow-sm">
                             <span class="h-2 w-2 rounded-full bg-primary-500"></span>
                             <span class="text-[10px] font-bold uppercase tracking-[0.24em] text-primary-700 font-montserrat">Invitation Only</span>
@@ -535,52 +528,28 @@
                             </a>
                         </div>
 
-                    </div>
-
-                    <aside class="hero-sidepanel flex items-end">
-                        <div class="w-full border-l border-primary-100 pl-5 md:pl-8">
+                        <div class="mt-10 max-w-5xl border-t border-primary-100 pt-6 md:mt-12 md:pt-8">
                             <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary-500/60 font-montserrat">Who It Is For</p>
-                            <div class="mt-5 space-y-5">
-                                <div class="border-b border-primary-100 pb-5">
+                            <div class="mt-5 grid gap-4 md:grid-cols-3 md:gap-6">
+                                <div class="border-b border-primary-100 pb-4 md:border-b-0 md:border-r md:pr-6 md:pb-0">
                                     <p class="text-sm font-bold uppercase tracking-[0.22em] text-primary-500/60 font-montserrat">01</p>
-                                    <p class="mt-2 text-base leading-relaxed text-slate-800">すでに何かを始めていて、次のフェーズへ進みたい人。</p>
+                                    <p class="mt-2 text-sm leading-7 text-slate-800 md:text-base md:leading-relaxed">すでに何かを始めていて、次のフェーズへ進みたい人。</p>
                                 </div>
-                                <div class="border-b border-primary-100 pb-5">
+                                <div class="border-b border-primary-100 pb-4 md:border-b-0 md:border-r md:px-2 md:pb-0 md:pr-6">
                                     <p class="text-sm font-bold uppercase tracking-[0.22em] text-primary-500/60 font-montserrat">02</p>
-                                    <p class="mt-2 text-base leading-relaxed text-slate-800">同世代の本気と出会い、自分の解像度を上げたい人。</p>
+                                    <p class="mt-2 text-sm leading-7 text-slate-800 md:text-base md:leading-relaxed">同世代の本気と出会い、自分の解像度を上げたい人。</p>
                                 </div>
-                                <div class="pb-2">
+                                <div>
                                     <p class="text-sm font-bold uppercase tracking-[0.22em] text-primary-500/60 font-montserrat">03</p>
-                                    <p class="mt-2 text-base leading-relaxed text-slate-800">福岡という都市のポテンシャルを、自分の挑戦につなげたい人。</p>
+                                    <p class="mt-2 text-sm leading-7 text-slate-800 md:text-base md:leading-relaxed">福岡という都市のポテンシャルを、自分の挑戦につなげたい人。</p>
                                 </div>
-                            </div>
-
-                            <div class="hero-scroll mt-8">
-                                <a href="#concept" class="inline-flex items-center gap-3 text-primary-600 transition-colors hover:text-primary-700">
-                                    <span class="text-[10px] font-bold uppercase tracking-[0.28em] font-montserrat">Scroll</span>
-                                    <span class="relative block h-8 w-[1px] overflow-hidden bg-gradient-to-b from-primary-100 via-primary-400 to-primary-100">
-                                        <span class="animate-dropdown absolute left-0 top-0 h-1/2 w-full bg-primary-500"></span>
-                                    </span>
-                                </a>
                             </div>
                         </div>
-                    </aside>
+
+                    </div>
                 </div>
             </div>
             
-            <style>
-                @keyframes dropdown {
-                    0% { transform: translateY(-100%); opacity: 0; }
-                    50% { opacity: 1; }
-                    100% { transform: translateY(100%); opacity: 0; }
-                }
-                .animate-dropdown {
-                    animation: dropdown 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
-                }
-                .text-shadow-sm {
-                    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-                }
-            </style>
         </section>
 
         <!-- Section 1: Concept -->
