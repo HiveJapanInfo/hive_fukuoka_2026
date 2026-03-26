@@ -99,7 +99,7 @@
 
         body {
             font-feature-settings: "palt";
-            letter-spacing: 0.05em;
+            letter-spacing: 0.02em;
         }
 
         /* Smooth Fade In Animation */
@@ -317,16 +317,24 @@
 
         @media (prefers-reduced-motion: reduce) {
             .hero-badge,
+            .hero-kicker,
+            .hero-intro,
             .hero-title-line1,
             .hero-title-line2,
             .hero-year,
             .hero-divider,
             .hero-subtext,
+            .hero-actions,
+            .hero-rail,
             .hero-scroll,
+            .hero-sidepanel,
             .poster-line-top,
             .poster-line-bottom,
             .poster-corner,
             .poster-inner-frame,
+            .hero-pan-bg,
+            .hero-orbit-ring,
+            .hero-sweep,
             .animate-dropdown {
                 animation: none !important;
                 transform: none !important;
@@ -341,6 +349,79 @@
 
         .hero-orb-2 {
             animation: glowPulse 5s ease-in-out 1s infinite, float 10s ease-in-out 2s infinite;
+        }
+
+        @keyframes heroDrift {
+            0% {
+                transform: scale(1.06) translate3d(0, 0, 0);
+            }
+            100% {
+                transform: scale(1.14) translate3d(-2.5%, -1.5%, 0);
+            }
+        }
+
+        @keyframes heroOrbit {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+            100% {
+                transform: rotate(360deg) scale(1.04);
+            }
+        }
+
+        @keyframes heroSweep {
+            0%, 100% {
+                transform: translateX(-18%) skewX(-18deg);
+                opacity: 0;
+            }
+            40% {
+                opacity: 0.28;
+            }
+            60% {
+                opacity: 0.12;
+            }
+            100% {
+                transform: translateX(118%) skewX(-18deg);
+                opacity: 0;
+            }
+        }
+
+        .hero-pan-bg {
+            animation: heroDrift 24s ease-in-out infinite alternate;
+            transform-origin: center;
+        }
+
+        .hero-orbit-ring {
+            animation: heroOrbit 28s linear infinite;
+        }
+
+        .hero-orbit-ring.reverse {
+            animation-direction: reverse;
+            animation-duration: 36s;
+        }
+
+        .hero-sweep {
+            animation: heroSweep 8s ease-in-out infinite;
+        }
+
+        .hero-kicker {
+            animation: heroFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+        }
+
+        .hero-intro {
+            animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+        }
+
+        .hero-actions {
+            animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.82s both;
+        }
+
+        .hero-rail {
+            animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.94s both;
+        }
+
+        .hero-sidepanel {
+            animation: heroFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.56s both;
         }
 
     </style>
@@ -405,59 +486,85 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="home" class="relative min-h-[100svh] md:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#013e79] via-primary-700 to-[#021f3d] pt-20 md:pt-40 pb-12 md:pb-20">
-            <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-20 mix-blend-overlay"></div>
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_22%,rgba(255,255,255,0.24),transparent_34%),radial-gradient(circle_at_82%_78%,rgba(120,200,255,0.22),transparent_38%)]"></div>
-            <div class="absolute inset-0 bg-[linear-gradient(125deg,transparent_0%,transparent_62%,rgba(255,255,255,0.10)_62%,rgba(255,255,255,0.10)_66%,transparent_66%)]"></div>
+        <section id="home" class="relative min-h-[100svh] overflow-hidden bg-gradient-to-b from-primary-50 via-white to-[#eef5fb]">
+            <div class="absolute inset-0">
+                <div class="absolute inset-y-0 right-0 hidden w-[48%] bg-hero-pattern bg-cover bg-center opacity-[0.14] mix-blend-multiply md:block"></div>
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(5,92,173,0.16),transparent_26%),radial-gradient(circle_at_82%_24%,rgba(95,162,228,0.18),transparent_22%)]"></div>
+                <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.98)_0%,rgba(255,255,255,0.92)_38%,rgba(255,255,255,0.70)_62%,rgba(255,255,255,0.88)_100%)]"></div>
+                <div class="absolute inset-0 opacity-[0.06] bg-[linear-gradient(rgba(5,92,173,0.7)_1px,transparent_1px),linear-gradient(90deg,rgba(5,92,173,0.7)_1px,transparent_1px)] bg-[size:88px_88px]"></div>
+            </div>
 
-            <div class="container mx-auto px-4 md:px-6 relative z-10">
-                <div class="max-w-5xl mx-auto relative">
-                    <div class="poster-line-top absolute -top-5 left-4 md:left-10 right-4 md:right-10 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent"></div>
-                    <div class="poster-line-bottom absolute -bottom-5 left-4 md:left-10 right-4 md:right-10 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent"></div>
+            <div class="relative z-10 mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
+                <div class="grid min-h-[100svh] items-end gap-12 pb-10 pt-28 md:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] md:pb-16 md:pt-32 lg:gap-20">
+                    <div class="max-w-3xl">
+                        <div class="hero-badge inline-flex items-center gap-2 rounded-full border border-primary-100 bg-white px-4 py-2 shadow-sm">
+                            <span class="h-2 w-2 rounded-full bg-primary-500"></span>
+                            <span class="text-[10px] font-bold uppercase tracking-[0.24em] text-primary-700 font-montserrat">Invitation Only</span>
+                        </div>
 
-                    <div class="relative bg-white/[0.06] backdrop-blur-sm border border-white/35 shadow-[0_35px_80px_-30px_rgba(0,0,0,0.7)]">
-                        <div class="poster-inner-frame absolute inset-3 md:inset-4 border border-white/20 pointer-events-none"></div>
-                        <div class="poster-corner poster-corner-tl absolute top-0 left-0 w-14 h-14 md:w-20 md:h-20 border-t-2 border-l-2 border-white/85"></div>
-                        <div class="poster-corner poster-corner-tr absolute top-0 right-0 w-14 h-14 md:w-20 md:h-20 border-t-2 border-r-2 border-white/85"></div>
-                        <div class="poster-corner poster-corner-bl absolute bottom-0 left-0 w-14 h-14 md:w-20 md:h-20 border-b-2 border-l-2 border-white/85"></div>
-                        <div class="poster-corner poster-corner-br absolute bottom-0 right-0 w-14 h-14 md:w-20 md:h-20 border-b-2 border-r-2 border-white/85"></div>
+                        <p class="hero-kicker mt-8 text-[10px] md:text-xs font-bold uppercase tracking-[0.34em] text-primary-500/70 font-montserrat">
+                            for ambitious young builders in fukuoka and tokyo
+                        </p>
 
-                        <div class="relative text-center px-6 md:px-14 pt-14 md:pt-20 pb-12 md:pb-16">
-                            <div class="hero-badge inline-flex items-center gap-1.5 py-1 px-3 md:py-1.5 md:px-5 rounded-full bg-white/10 border border-white/20 shadow-lg mb-6 md:mb-8 hover:bg-white/15 transition-colors duration-300">
-                                <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-white animate-pulse shadow-[0_0_10px_#ffffff]"></span>
-                                <span class="text-white/85 text-[8px] md:text-[10px] font-bold tracking-[0.18em] md:tracking-[0.22em] uppercase font-montserrat">Invitation Only</span>
+                        <h1 class="mt-5 font-montserrat font-black leading-[0.86] tracking-[-0.055em] text-primary-700">
+                            <span class="hero-title-line1 block text-[4rem] sm:text-[5.4rem] md:text-[7.2rem] lg:text-[8.8rem]">HIVE</span>
+                            <span class="hero-title-line2 block text-[4.1rem] sm:text-[5.55rem] md:text-[7.35rem] lg:text-[9rem] text-primary-600">FUKUOKA</span>
+                        </h1>
+
+                        <div class="hero-divider my-6 flex items-center gap-3 md:my-8">
+                            <div class="h-px w-20 bg-primary-500 md:w-28"></div>
+                            <div class="h-2 w-2 rotate-45 border border-primary-500"></div>
+                            <div class="h-px w-10 bg-primary-200 md:w-16"></div>
+                        </div>
+
+                        <p class="hero-year text-sm md:text-base font-bold tracking-[0.16em] text-primary-700/80">
+                            2026年5月16日(土)・17日(日) / 1泊2日
+                        </p>
+
+                        <p class="hero-subtext mt-5 max-w-2xl text-[17px] sm:text-[20px] md:text-[27px] font-medium leading-[1.65] text-slate-900">
+                            10年後の日本を創る世代が、福岡に集まる。<br>
+                            <span class="text-primary-700">あなたの「問い」と「熱量」が、次の挑戦の起点になる。</span>
+                        </p>
+
+                        <div class="hero-actions mt-8 flex flex-wrap gap-3">
+                            <a href="#concept" class="inline-flex min-h-[48px] items-center justify-center rounded-full bg-primary-500 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-primary-600">
+                                どんな場か見る
+                            </a>
+                            <a href="#outline" class="inline-flex min-h-[48px] items-center justify-center rounded-full border border-primary-200 bg-white px-6 py-3 text-sm font-bold text-primary-700 transition-colors hover:bg-primary-50">
+                                開催概要を見る
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <aside class="hero-sidepanel flex items-end">
+                        <div class="w-full border-l border-primary-100 pl-5 md:pl-8">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary-500/60 font-montserrat">Who It Is For</p>
+                            <div class="mt-5 space-y-5">
+                                <div class="border-b border-primary-100 pb-5">
+                                    <p class="text-sm font-bold uppercase tracking-[0.22em] text-primary-500/60 font-montserrat">01</p>
+                                    <p class="mt-2 text-base leading-relaxed text-slate-800">すでに何かを始めていて、次のフェーズへ進みたい人。</p>
+                                </div>
+                                <div class="border-b border-primary-100 pb-5">
+                                    <p class="text-sm font-bold uppercase tracking-[0.22em] text-primary-500/60 font-montserrat">02</p>
+                                    <p class="mt-2 text-base leading-relaxed text-slate-800">同世代の本気と出会い、自分の解像度を上げたい人。</p>
+                                </div>
+                                <div class="pb-2">
+                                    <p class="text-sm font-bold uppercase tracking-[0.22em] text-primary-500/60 font-montserrat">03</p>
+                                    <p class="mt-2 text-base leading-relaxed text-slate-800">福岡という都市のポテンシャルを、自分の挑戦につなげたい人。</p>
+                                </div>
                             </div>
 
-                            <h1 class="text-[3.1rem] sm:text-[4.2rem] md:text-[7.4rem] lg:text-[8.6rem] font-black tracking-[-0.04em] text-white leading-[0.94] sm:leading-[0.9] md:leading-[0.88] font-montserrat drop-shadow-[0_10px_24px_rgba(0,0,0,0.22)]">
-                                <span class="hero-title-line1 inline-block">HIVE</span><br>
-                                <span class="hero-title-line2 inline-block text-white pr-2 md:pr-3">FUKUOKA</span>
-                            </h1>
-
-                            <div class="hero-divider flex items-center justify-center gap-3 opacity-70 my-5 md:my-7">
-                                <div class="h-px w-8 md:w-20 bg-gradient-to-r from-transparent to-white"></div>
-                                <div class="w-1.5 h-1.5 md:w-2 md:h-2 rotate-45 border border-white/80"></div>
-                                <div class="h-px w-8 md:w-20 bg-gradient-to-l from-transparent to-white"></div>
-                            </div>
-
-                            <p class="hero-year text-sm md:text-lg font-bold text-white/95 tracking-[0.08em] md:tracking-[0.12em] mb-4 md:mb-6">
-                                2026年5月16日(土)・17日(日)
-                            </p>
-
-                            <p class="hero-subtext text-[13px] sm:text-base md:text-xl font-medium text-white/95 max-w-md md:max-w-2xl mx-auto leading-relaxed md:leading-loose px-2 tracking-wide">
-                                10年後の日本を創る私たちが、福岡に集まる。<br>
-                                <span class="text-white font-semibold border-b border-white/20 pb-0.5">あなたの「問い」が、世界を変える起点になる。</span>
-                            </p>
-
-                            <div class="hero-scroll pt-8 md:pt-16">
-                                <a href="#concept" class="inline-flex flex-col items-center gap-2 md:gap-3 text-white/60 hover:text-white transition-colors duration-300 cursor-pointer group">
-                                    <span class="text-[9px] md:text-[10px] font-bold tracking-[0.25em] uppercase font-montserrat group-hover:translate-y-1 transition-transform">Scroll</span>
-                                    <div class="w-[1px] h-8 md:h-16 bg-gradient-to-b from-white/0 via-white/60 to-white/0 relative overflow-hidden">
-                                        <div class="absolute top-0 left-0 w-full h-1/2 bg-white animate-dropdown"></div>
-                                    </div>
+                            <div class="hero-scroll mt-8">
+                                <a href="#concept" class="inline-flex items-center gap-3 text-primary-600 transition-colors hover:text-primary-700">
+                                    <span class="text-[10px] font-bold uppercase tracking-[0.28em] font-montserrat">Scroll</span>
+                                    <span class="relative block h-8 w-[1px] overflow-hidden bg-gradient-to-b from-primary-100 via-primary-400 to-primary-100">
+                                        <span class="animate-dropdown absolute left-0 top-0 h-1/2 w-full bg-primary-500"></span>
+                                    </span>
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </aside>
                 </div>
             </div>
             
@@ -477,136 +584,112 @@
         </section>
 
         <!-- Section 1: Concept -->
-        <section id="concept" class="py-16 md:py-28 bg-white border-b border-base-tertiary relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-b from-primary-50/70 via-white to-white"></div>
-            <div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-100/60 rounded-full blur-3xl"></div>
-            <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-primary-50 rounded-full blur-3xl"></div>
+        <section id="concept" class="border-b border-slate-200 bg-[#f3f4f6] py-16 md:py-24">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <div class="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
+                    <div class="reveal">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Concept</span>
+                        <h2 class="mt-4 text-2xl font-black leading-tight text-slate-900 md:text-4xl">Hive Fukuokaが目指すもの</h2>
+                    </div>
 
-            <div class="container mx-auto px-4 md:px-6 max-w-6xl relative z-10">
-                <div class="reveal max-w-4xl">
-                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">CONCEPT</span>
-                    <h2 class="text-2xl md:text-5xl font-black text-primary-500 mt-3 leading-tight">Hive Fukuokaが目指すもの</h2>
-                    <p class="text-lg md:text-2xl font-bold text-txt-primary mt-4 leading-relaxed">志を更新する「宴」</p>
-                </div>
+                    <div class="reveal border-t border-slate-300 pt-8">
+                        <p class="max-w-3xl text-2xl font-bold leading-relaxed text-slate-900 md:text-[2rem]">
+                            志を更新する「宴」。<br>
+                            福岡という街を、挑戦の土壌として使い倒すための起点。
+                        </p>
 
-                <article class="reveal mt-8 md:mt-10 bg-white border border-primary-100 rounded-2xl p-5 md:p-8 shadow-card">
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-10">
-                        <div class="space-y-4 md:space-y-5">
-                            <div class="text-[10px] md:text-xs font-bold tracking-[0.18em] text-primary-500 font-montserrat">WHY WE GATHER</div>
-                            <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                                福岡という街を、挑戦のフィールドとして使い倒してほしい。<br>
-                                そして、この街が持つ本当の面白さに、もっと深く触れてほしい。
-                            </p>
-                            <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                                そのはじまりとして、志を語り合う1泊2日の合宿を開催します。福岡に住む人と、関東から集う人が半分ずつ交わり、本音で自分の志や考えをぶつけ合います。
-                            </p>
-                            <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                                福岡をハブに、日本へ、そして世界へ。多様なバックグラウンドを持つ若者が、この街を起点に次々とアクションを起こし続ける。そんな「挑戦の土壌」を、ここから耕していきます。
-                            </p>
+                        <div class="mt-10 grid gap-8 md:grid-cols-2 md:gap-10">
+                            <div class="space-y-5 text-[15px] leading-8 text-slate-700 md:text-[17px]">
+                                <p>福岡という街を、挑戦のフィールドとして使い倒してほしい。そして、この街が持つ本当の面白さに、もっと深く触れてほしい。</p>
+                                <p>そのはじまりとして、志を語り合う1泊2日の合宿を開催します。福岡に住む人と、関東から集う人が半分ずつ交わり、本音で自分の志や考えをぶつけ合います。</p>
+                                <p>福岡をハブに、日本へ、そして世界へ。多様なバックグラウンドを持つ若者が、この街を起点に次々とアクションを起こし続ける。そんな「挑戦の土壌」を、ここから耕していきます。</p>
+                            </div>
+
+                            <div class="border-t border-slate-300 pt-5 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">UTAGE</p>
+                                <div class="mt-5 space-y-5 text-[15px] leading-8 text-slate-700 md:text-[17px]">
+                                    <p>挑戦の連鎖を呼び起こす、熱狂の幕開けがこの「宴」です。</p>
+                                    <p>ここは、名刺交換で終わるような淡白な交流会ではありません。自分の根源にある志をさらけ出し、誰かの視点を通じて自らの「当たり前」を問い直す。</p>
+                                    <p>夜通し語り合い、互いの魂を揺さぶる時間。その濃密な対話こそが、福岡から世界を動かすエネルギーになると私たちは信じています。</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="space-y-4 md:space-y-5 md:border-l md:border-primary-100 md:pl-8">
-                            <div class="text-[10px] md:text-xs font-bold tracking-[0.18em] text-primary-500 font-montserrat">UTAGE</div>
-                            <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                                挑戦の連鎖を呼び起こす、熱狂の幕開けがこの「宴（うたげ）」です。
-                            </p>
-                            <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                                ここは、名刺交換で終わるような淡白な交流会ではありません。自分の根源にある志をさらけ出し、誰かの視点を通じて自らの「当たり前」を問い直す。
-                            </p>
-                            <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                                夜通し語り合い、互いの魂を揺さぶる時間。その濃密な対話こそが、福岡から世界を動かすエネルギーになると私たちは信じています。
+                        <div class="mt-8 border-t border-slate-300 pt-4">
+                            <p class="text-sm leading-7 text-slate-500">
+                                参加者構成は固定人数ではなく、福岡在住の挑戦者と関東からの挑戦者が半分ずつ交わるバランスを目安にしています。
                             </p>
                         </div>
                     </div>
-                </article>
-                <div class="reveal mt-4 md:mt-6 bg-white border border-primary-100 rounded-xl px-4 py-3 md:px-6 md:py-4" style="transition-delay: 180ms;">
-                    <p class="text-xs md:text-sm text-txt-secondary leading-relaxed">
-                        参加者構成は固定人数ではなく、福岡在住の挑戦者と関東からの挑戦者が半分ずつ交わるバランスを目安にしています。
-                    </p>
                 </div>
             </div>
         </section>
 
         <!-- Section 2: Theme -->
-        <section id="theme" class="py-16 md:py-28 bg-base-primary border-b border-base-tertiary relative overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(5,92,173,0.08),transparent_55%)]"></div>
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(5,92,173,0.06),transparent_55%)]"></div>
-
-            <div class="container mx-auto px-4 md:px-6 max-w-6xl relative z-10">
+        <section id="theme" class="border-b border-primary-100 bg-gradient-to-b from-white to-primary-50/60 py-16 text-slate-900 md:py-24">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
                 <div class="reveal max-w-4xl">
-                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">THEME</span>
-                    <h2 class="text-2xl md:text-5xl font-black text-primary-500 mt-3 leading-tight">第1回テーマ：交差点の街・福岡に「漬かる」</h2>
-                    <p class="text-sm md:text-lg text-txt-secondary mt-4 leading-relaxed">「交差点」であるこの街の、さらに深部へ。</p>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Theme</span>
+                    <h2 class="mt-4 text-2xl font-black leading-tight md:text-4xl">第1回テーマ: 交差点の街・福岡に「漬かる」</h2>
+                    <p class="mt-4 text-sm leading-7 text-slate-600 md:text-base">表面的な観光ではなく、街の深層と精神に触れる2日間。</p>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-4 md:gap-6 mt-7 md:mt-10">
-                    <article class="reveal bg-white border border-base-tertiary rounded-2xl p-5 md:p-8 shadow-card space-y-4 md:space-y-5">
-                        <h3 class="text-base md:text-xl font-bold text-primary-500">福岡という交差点を掘り下げる</h3>
-                        <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                            都市と自然、人と文化。あらゆるものが混じり合う福岡は、古くから多様な可能性が交差する街でした。
-                        </p>
-                        <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                            第1回となる今回は、あらゆる意味で「交差点」であるこの街を、観光レベルでは決して辿り着けない「深層」まで探究し、語り尽くします。
-                        </p>
-                    </article>
+                <div class="mt-10 grid gap-8 border-t border-primary-100 pt-8 md:grid-cols-2 md:gap-12">
+                    <div class="reveal">
+                        <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500/70 font-montserrat">Deep Dive</p>
+                        <p class="mt-4 text-xl font-bold leading-relaxed text-slate-900 md:text-2xl">福岡という交差点を、観光レベルでは届かないところまで掘り下げる。</p>
+                        <div class="mt-6 space-y-4 text-[15px] leading-8 text-slate-700 md:text-[17px]">
+                            <p>都市と自然、人と文化。あらゆるものが混じり合う福岡は、古くから多様な可能性が交差する街でした。</p>
+                            <p>第1回となる今回は、その「交差点」である街を、表層ではなく深層まで探究し、語り尽くします。</p>
+                        </div>
+                    </div>
 
-                    <article class="reveal bg-white border border-base-tertiary rounded-2xl p-5 md:p-8 shadow-card space-y-4 md:space-y-5" style="transition-delay: 100ms;">
-                        <h3 class="text-base md:text-xl font-bold text-primary-500">訪れる人にも、住む人にも新しい発見を</h3>
-                        <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                            福岡を訪れる人は、ガイドブックを閉じて福岡の真髄に触れる。住んでいる人は、他者の視点を取り入れることで、見慣れた日常がいかに価値ある挑戦のフィールドであるかを再発見する。
-                        </p>
-                        <p class="text-sm md:text-lg leading-7 md:leading-8 text-txt-secondary">
-                            特定のトピックについてとことん深掘りし、対話を重ねる2日間。福岡という土地の精神にどっぷりと「漬かる」体験を通じて、自分自身の視点を揺さぶり、志をアップデートすることを目指します。
-                        </p>
-                    </article>
+                    <div class="reveal border-t border-primary-100 pt-6 md:border-l md:border-t-0 md:pl-10 md:pt-0" style="transition-delay: 100ms;">
+                        <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500/70 font-montserrat">Perspective</p>
+                        <div class="mt-4 space-y-4 text-[15px] leading-8 text-slate-700 md:text-[17px]">
+                            <p>福岡を訪れる人は、ガイドブックを閉じて福岡の真髄に触れる。住んでいる人は、他者の視点によって見慣れた日常を別の角度から見直す。</p>
+                            <p>特定のトピックについてとことん深掘りし、対話を重ねる2日間。福岡という土地の精神にどっぷりと「漬かる」体験を通じて、自分自身の視点と志をアップデートします。</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="reveal mt-4 md:mt-6 bg-gradient-to-r from-primary-500 to-primary-700 rounded-2xl px-5 py-5 md:px-8 md:py-6 text-white shadow-card">
-                    <p class="text-sm md:text-lg font-bold leading-relaxed">
-                        交差する視点に身を置き、福岡の深層へ。2日間の濃密な対話が、次の挑戦を動かす起点になる。
+                <div class="reveal mt-10 border-t border-primary-100 pt-6">
+                    <p class="max-w-3xl text-lg font-semibold leading-relaxed text-primary-700 md:text-xl">
+                        交差する視点に身を置き、福岡の深層へ。濃密な対話が、次の挑戦を動かす起点になる。
                     </p>
                 </div>
             </div>
         </section>
 
         <!-- Section 3: Invitation -->
-        <section id="invitation" class="py-16 md:py-32 bg-base-primary relative z-20">
-            <div class="container mx-auto px-4 md:px-6 max-w-4xl relative">
-                <div class="reveal">
-                    <!-- Adjusted padding for mobile -->
-                    <div class="bg-white rounded-2xl px-6 pt-12 pb-10 md:px-14 md:pt-24 md:pb-20 border border-base-tertiary relative overflow-hidden shadow-[0_25px_50px_-12px_rgba(5,92,173,0.15)]">
-                        <!-- Decorative element -->
-                        <div class="absolute top-0 right-0 -mt-16 -mr-16 w-40 md:w-64 h-40 md:h-64 bg-primary-100/50 rounded-full blur-3xl opacity-60"></div>
-                        <div class="absolute bottom-0 left-0 -mb-16 -ml-16 w-32 md:w-40 h-32 md:h-40 bg-primary-100/50 rounded-full blur-2xl opacity-60"></div>
-
-                        <div class="relative z-10 space-y-8 md:space-y-12">
-                            <div class="text-center">
-                                <span class="text-primary-500 font-bold tracking-widest uppercase text-xs mb-3 md:mb-4 block font-montserrat opacity-70">Invitation Letter</span>
-                                <h2 class="text-xl md:text-4xl font-black text-primary-500 leading-tight">
-                                    人生に、社会に、未来に。<br>
-                                    <span class="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-transparent">本気のあなたへ</span>
-                                </h2>
-                            </div>
-
-                            <p class="text-sm md:text-lg text-txt-primary leading-loose font-medium">
-                                社会への違和感。成し遂げたい何か。心の奥で燃える、純粋な情熱。<br class="hidden md:block">
-                                日常に埋もれ、誰にも話せず、一人で抱え込んではいませんか？
+        <section id="invitation" class="border-b border-slate-200 bg-white py-16 md:py-24">
+            <div class="mx-auto max-w-5xl px-4 md:px-6">
+                <div class="reveal border-t border-slate-300 pt-8">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Invitation Letter</span>
+                    <div class="mt-6 grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
+                        <div>
+                            <h2 class="text-2xl font-black leading-tight text-slate-900 md:text-5xl">
+                                人生に、社会に、未来に。<br>
+                                <span class="text-primary-500">本気のあなたへ。</span>
+                            </h2>
+                            <p class="mt-8 text-base leading-8 text-slate-700 md:text-lg">
+                                社会への違和感。成し遂げたい何か。心の奥で燃える、純粋な情熱。日常に埋もれ、誰にも話せず、一人で抱え込んではいませんか？
                             </p>
-
-                            <div class="relative pl-6 md:pl-8 py-2 border-l-2 border-primary-200">
-                                <h3 class="text-lg md:text-2xl font-bold text-primary-500 mb-3 md:mb-4">「Hive Fukuoka 2026」は、<br class="md:hidden">あなたのための場所です。</h3>
-                                <p class="text-txt-secondary text-sm md:text-base leading-relaxed">
-                                    東京と福岡、それぞれの場所で未来を創ろうと挑戦する若者が集い、利害関係なく、ただひたすらに「志」と「問い」をぶつけ合う。1泊2日の合宿が、ここ福岡で幕を開けます。
-                                </p>
-                            </div>
-
-                            <p class="text-txt-primary text-sm md:text-base leading-relaxed">
-                                私たちが求めるのは、完璧な経歴や実績ではありません。「どんな社会を生きたいか」「自分はどんな問いと共に生きるか」を、心の底から語り合いたいという、その熱意だけです。
+                            <p class="mt-6 text-base leading-8 text-slate-700 md:text-lg">
+                                「Hive Fukuoka 2026」は、そんなあなたのための場所です。東京と福岡、それぞれの場所で未来を創ろうと挑戦する若者が集い、利害関係なく、ただひたすらに「志」と「問い」をぶつけ合う。1泊2日の合宿が、ここ福岡で幕を開けます。
                             </p>
-                            
-                            <div class="text-right pt-4">
-                                <span class="font-en text-xl md:text-3xl font-black text-gray-100 select-none tracking-tight">HIVE FUKUOKA</span>
-                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-300 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-slate-400 font-montserrat">What Matters</p>
+                            <p class="mt-5 text-lg font-semibold leading-relaxed text-slate-900">
+                                求めるのは、経歴や肩書きではない。<br>
+                                未来について本気で語りたいという熱意です。
+                            </p>
+                            <p class="mt-6 text-sm leading-8 text-slate-600 md:text-base">
+                                「どんな社会を生きたいか」「自分はどんな問いと共に生きるか」を、心の底から語り合いたい。その意志こそが、この場の参加資格です。
+                            </p>
+                            <p class="mt-10 text-right text-sm font-bold uppercase tracking-[0.24em] text-slate-300 font-montserrat">HIVE FUKUOKA</p>
                         </div>
                     </div>
                 </div>
@@ -614,143 +697,104 @@
         </section>
 
         <!-- Concept Movie Section -->
-        <section class="py-16 md:py-20 bg-white border-y border-base-tertiary">
-            <div class="container mx-auto px-4 md:px-6 max-w-5xl">
-                <div class="text-center mb-8 md:mb-12 reveal">
-                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">Concept Movie</span>
-                    <h2 class="text-xl md:text-4xl font-black text-primary-500 mt-2 md:mt-3">熱狂の瞬間を、映像で。</h2>
-                    <p class="text-txt-secondary text-xs md:text-sm mt-3 md:mt-4">HIVEの空気を、肌で感じてください。</p>
-                </div>
-                
-                <div class="reveal relative w-full pt-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-base-tertiary group bg-black transform transition-transform hover:scale-[1.01] duration-500">
-                    <iframe src="https://player.vimeo.com/video/792859255?h=0&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <section class="border-b border-primary-100 bg-[#f7fbff] py-16 md:py-24">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <div class="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
+                    <div class="reveal">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Concept Movie</span>
+                        <h2 class="mt-4 text-2xl font-black leading-tight text-slate-900 md:text-4xl">熱狂の瞬間を、映像で。</h2>
+                    </div>
+
+                    <div class="reveal border-t border-primary-100 pt-8">
+                        <p class="max-w-2xl text-sm leading-7 text-slate-600 md:text-base">
+                            HIVEの空気感や対話の熱量を、まずは映像で。文章だけでは伝わりきらない場の密度を感じてください。
+                        </p>
+
+                        <div class="mt-8 grid gap-8 md:grid-cols-[minmax(0,1fr)_220px] md:items-end">
+                            <div class="relative w-full overflow-hidden border border-primary-100 bg-black pt-[56.25%]">
+                                <iframe src="https://player.vimeo.com/video/792859255?h=0&title=0&byline=0&portrait=0" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="border-t border-primary-100 pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-0">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Why Watch</p>
+                                <p class="mt-4 text-base font-semibold leading-7 text-slate-900 md:text-lg">
+                                    どんな人が集い、どんな熱量で語り合うのかを、最短で掴めます。
+                                </p>
+                                <p class="mt-4 text-sm leading-7 text-slate-600">
+                                    「自分がこの場に身を置きたいか」を判断するための、最初の空気合わせとして置いています。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Section 5: Participants -->
-        <section id="participants" class="py-16 md:py-32 bg-base-primary border-b border-base-tertiary relative overflow-hidden">
-            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.02]"></div>
-            <div class="absolute -top-20 right-0 w-64 h-64 bg-primary-100/40 rounded-full blur-3xl"></div>
-
-            <div class="container mx-auto px-4 md:px-6 max-w-6xl relative z-10">
-                <div class="text-center mb-12 md:mb-20 reveal">
-                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">Participants</span>
-                    <h2 class="text-2xl md:text-5xl font-black text-primary-500 mt-3">参加する仲間たち</h2>
-                    <p class="text-sm md:text-xl text-txt-secondary mt-4 font-medium">境界線を越え、異能が混ざり合う。</p>
-                </div>
-
-                <div class="reveal max-w-5xl mx-auto mb-8 md:mb-10 bg-white border border-base-tertiary rounded-2xl p-5 md:p-8 shadow-card">
-                    <p class="text-sm md:text-lg text-txt-secondary leading-relaxed md:leading-8">
-                        分野や肩書きは問いません。福岡に根ざして挑戦する人と、関東から越境して挑戦する人が交わり、互いの視点をぶつけ合う場です。
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6">
-                    <article class="reveal md:col-span-2 bg-white rounded-2xl p-5 md:p-7 shadow-card border border-base-tertiary relative overflow-hidden space-y-4">
-                        <div class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-primary-300 to-primary-600"></div>
-                        <div class="text-xs font-bold text-primary-600 bg-primary-50 px-3 py-1 rounded-full inline-flex tracking-wide">PROFILE</div>
-                        <h3 class="text-lg md:text-xl font-bold text-primary-500">属性</h3>
-                        <p class="text-txt-secondary text-sm md:text-base leading-relaxed">社会人・大学生どちらも歓迎</p>
-                        <p class="text-txt-secondary text-sm md:text-base leading-relaxed">福岡在住と関東からの参加者が半分ずつ交わる構成を目安にします。</p>
-                    </article>
-
-                    <article class="reveal md:col-span-3 bg-white rounded-2xl p-5 md:p-7 shadow-card border border-base-tertiary relative overflow-hidden space-y-4" style="transition-delay: 100ms;">
-                        <div class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-primary-300 to-primary-600"></div>
-                        <div class="text-xs font-bold text-primary-600 bg-primary-50 px-3 py-1 rounded-full inline-flex tracking-wide">MINDSET</div>
-                        <h3 class="text-lg md:text-xl font-bold text-primary-500">共通点</h3>
-                        <p class="text-txt-secondary text-sm md:text-base leading-relaxed">10年先の未来を、自分の手で創ろうとする志を持っていること。</p>
-                        <p class="text-txt-secondary text-sm md:text-base leading-relaxed">肩書きや立場の違いを越えて、率直に問いを投げ合い、次のアクションにつなげる意志があること。</p>
-                    </article>
-                </div>
-
-                <article class="reveal mt-4 md:mt-6 bg-white rounded-2xl p-5 md:p-7 shadow-card border border-base-tertiary relative overflow-hidden" style="transition-delay: 200ms;">
-                    <div class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-primary-300 to-primary-600"></div>
-                    <div class="text-xs font-bold text-primary-600 bg-primary-50 px-3 py-1 rounded-full inline-flex mb-4 tracking-wide">FIELDS</div>
-                    <h3 class="text-lg md:text-xl font-bold text-primary-500 mb-4">分野例</h3>
-                    <div class="flex flex-wrap gap-2 md:gap-3">
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">貿易</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">金融</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">広告</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">IT</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">スタートアップ</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">アート</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">行政</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">教育</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">研究</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">まちづくり</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">医療</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">福祉</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">食</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">農業</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">エンタメ</span>
-                        <span class="px-3 py-1.5 rounded-full bg-base-primary border border-base-tertiary text-xs md:text-sm font-medium text-txt-secondary">一次産業</span>
-                        <span class="px-3 py-1.5 rounded-full bg-primary-500 text-white text-xs md:text-sm font-bold">など</span>
+        <section id="participants" class="border-b border-slate-200 bg-[#f7f7f5] py-16 md:py-24">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <div class="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
+                    <div class="reveal">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Participants</span>
+                        <h2 class="mt-4 text-2xl font-black leading-tight text-slate-900 md:text-4xl">参加する仲間たち</h2>
                     </div>
-                </article>
+
+                    <div class="reveal border-t border-slate-300 pt-8">
+                        <p class="max-w-3xl text-lg leading-8 text-slate-700 md:text-xl">
+                            分野や肩書きは問いません。福岡に根ざして挑戦する人と、関東から越境して挑戦する人が交わり、互いの視点をぶつけ合う場です。
+                        </p>
+
+                        <div class="mt-10 grid gap-px bg-slate-300 md:grid-cols-3">
+                            <article class="bg-[#f7f7f5] p-6 md:p-8">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Profile</p>
+                                <h3 class="mt-4 text-xl font-bold text-slate-900">属性</h3>
+                                <p class="mt-4 text-sm leading-8 text-slate-700 md:text-base">社会人・大学生どちらも歓迎。福岡在住と関東からの参加者が半分ずつ交わる構成を目安にします。</p>
+                            </article>
+
+                            <article class="bg-[#f7f7f5] p-6 md:p-8">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Mindset</p>
+                                <h3 class="mt-4 text-xl font-bold text-slate-900">共通点</h3>
+                                <p class="mt-4 text-sm leading-8 text-slate-700 md:text-base">10年先の未来を、自分の手で創ろうとする志を持っていること。肩書きや立場の違いを越えて、率直に問いを投げ合い、次のアクションにつなげる意志があること。</p>
+                            </article>
+
+                            <article class="bg-[#f7f7f5] p-6 md:p-8">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Fields</p>
+                                <h3 class="mt-4 text-xl font-bold text-slate-900">分野例</h3>
+                                <p class="mt-4 text-sm leading-8 text-slate-700 md:text-base">貿易、金融、広告、IT、スタートアップ、アート、行政、教育、研究、まちづくり、医療、福祉、食、農業、エンタメ、一次産業など。</p>
+                            </article>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Section 6: Outline -->
-        <section id="outline" class="py-16 md:py-32 bg-base-primary relative overflow-hidden border-b border-base-tertiary">
-            <!-- Background Decoration -->
-            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03]"></div>
-            
-            <div class="container mx-auto px-4 md:px-6 max-w-6xl relative z-10">
-                <div class="grid md:grid-cols-2 gap-8 md:gap-20 items-center">
+        <section id="outline" class="border-b border-slate-200 bg-white py-16 md:py-24">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <div class="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
                     <div class="reveal">
-                        <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">Outline</span>
-                        <h2 class="text-2xl md:text-5xl font-black mb-6 md:mb-8 leading-tight text-primary-500 mt-3">
-                            開催概要
-                        </h2>
-                        <p class="text-txt-secondary text-sm md:text-lg mb-6 md:mb-10 leading-relaxed">
-                            2026年5月16日(土)・17日(日)、1泊2日の合宿形式で開催。福岡の街を起点に探究と対話を重ねます。
-                        </p>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Outline</span>
+                        <h2 class="mt-4 text-2xl font-black leading-tight text-slate-900 md:text-4xl">開催概要</h2>
                     </div>
 
-                    <div class="reveal bg-white rounded-2xl shadow-card hover:shadow-card-hover p-6 md:p-10 border border-base-tertiary transition-all duration-500 transform hover:-translate-y-2">
-                        <div class="flex items-center justify-between mb-6 md:mb-8 border-b border-base-tertiary pb-6">
-                            <h3 class="text-lg md:text-2xl font-bold flex items-center gap-3 text-primary-500">
-                                <span class="bg-primary-50 p-2 rounded-lg text-primary-600">
-                                    <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                </span>
-                                開催概要
-                            </h3>
-                            <span class="text-[10px] md:text-xs font-bold text-primary-600 bg-primary-100/50 px-3 py-1 rounded-full tracking-wide">PLANNED</span>
-                        </div>
-                        
-                        <div class="space-y-6 md:space-y-8">
-                            <div class="flex flex-col md:flex-row gap-2 md:gap-6 items-start">
-                                <div class="w-24 flex-shrink-0 text-xs font-bold text-txt-muted uppercase tracking-wider font-montserrat pt-1">Date</div>
-                                <div>
-                                    <p class="text-base md:text-xl font-bold text-txt-primary">2026年5月16日(土)・17日(日)（1泊2日の合宿形式）</p>
+                    <div class="reveal border-t border-slate-300 pt-6">
+                        <div class="divide-y divide-slate-300">
+                            <div class="grid gap-3 py-5 md:grid-cols-[140px_minmax(0,1fr)]">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-slate-400 font-montserrat">Date</p>
+                                <p class="text-base font-semibold leading-8 text-slate-900 md:text-xl">2026年5月16日(土)・17日(日) / 1泊2日の合宿形式</p>
+                            </div>
+                            <div class="grid gap-3 py-5 md:grid-cols-[140px_minmax(0,1fr)]">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-slate-400 font-montserrat">Place</p>
+                                <div class="space-y-3 text-sm leading-8 text-slate-700 md:text-base">
+                                    <p>福岡市（天神）を拠点に市内を探索し、スペシャルゲストを招いたディスカッションタイムも予定しています。</p>
+                                    <p>2日目は、実際に体験して肌で感じてもらえるコンテンツを用意。当日をお楽しみに。</p>
                                 </div>
                             </div>
-                            
-                            <div class="flex flex-col md:flex-row gap-2 md:gap-6 items-start w-full">
-                                <div class="w-24 flex-shrink-0 text-xs font-bold text-txt-muted uppercase tracking-wider font-montserrat pt-1">Place</div>
-                                <div class="space-y-3 w-full">
-                                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 bg-base-primary p-3 rounded-lg border border-transparent hover:border-primary-100 transition-colors">
-                                        <span class="text-sm font-bold text-txt-primary">福岡市（天神）を拠点に市内を探索・スペシャルゲストをお招きしたディスカッションタイムもあります</span>
-                                        <span class="text-[10px] px-2 py-0.5 rounded bg-primary-500 text-white font-bold">Day 1</span>
-                                    </div>
-                                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 bg-base-primary p-3 rounded-lg opacity-70 border border-transparent hover:border-primary-100 transition-colors">
-                                        <span class="text-sm font-bold text-txt-primary">実際に体験して肌で感じてもらえるコンテンツ・当日をお楽しみに！</span>
-                                        <span class="text-[10px] px-2 py-0.5 rounded bg-txt-muted text-white font-bold">Day 2</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex flex-col md:flex-row gap-2 md:gap-6 items-start">
-                                <div class="w-24 flex-shrink-0 text-xs font-bold text-txt-muted uppercase tracking-wider font-montserrat pt-1">Members</div>
-                                <div>
-                                    <p class="text-txt-secondary leading-relaxed text-sm md:text-base">
-                                        東京からの遠征組と福岡のローカル組、合わせて50名が一つの宿に集い、2日間を共に過ごします。<br>
-                                        あえて全員が同じ場所に宿泊するのは、朝から晩まで、同じ釜の飯を食べながら思考を止めることなく語り合うため。<br>
-                                        異なる視点を持つ者同士が、寝食を共にする距離感で本音をぶつけ合う。<br>
-                                        この「濃密な対話の連続」が、参加者の志を研ぎ澄まします。
-                                    </p>
-                                </div>
+                            <div class="grid gap-3 py-5 md:grid-cols-[140px_minmax(0,1fr)]">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-slate-400 font-montserrat">Members</p>
+                                <p class="text-sm leading-8 text-slate-700 md:text-base">
+                                    東京からの遠征組と福岡のローカル組、合わせて50名が一つの宿に集い、2日間を共に過ごします。あえて全員が同じ場所に宿泊するのは、朝から晩まで同じ釜の飯を食べながら思考を止めず語り合うため。異なる視点を持つ者同士が、寝食を共にする距離感で本音をぶつけ合います。
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -759,106 +803,78 @@
         </section>
 
         <!-- Section 3: Value Proposition -->
-        <section id="why-hive" class="py-16 md:py-32 bg-white">
-             <div class="container mx-auto px-4 md:px-6 max-w-6xl">
-                <div class="text-center mb-12 md:mb-20 reveal">
-                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">Value Proposition</span>
-                    <h2 class="text-2xl md:text-5xl font-black text-primary-500 mt-3">今、私たちがここに集う意味</h2>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-                    <!-- Card 1: 志の覚醒 -->
-                    <div class="reveal bg-base-primary p-6 md:p-8 rounded-2xl transition-all duration-300 border border-transparent hover:border-primary-100 hover:bg-white hover:shadow-card-hover group cursor-default">
-                        <div class="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center mb-4 md:mb-6 shadow-sm group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 text-primary-500">
-                            <!-- Heroicon: lightning-bolt -->
-                            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        </div>
-                        <h3 class="text-lg font-bold mb-3 md:mb-4 text-primary-500">志の覚醒とアップデート</h3>
-                        <p class="text-txt-secondary text-sm leading-relaxed">他者との深い対話を通じて、自分でも気づかなかった本当の志に出会い、磨き上げます。</p>
+        <section id="why-hive" class="border-b border-slate-200 bg-white py-16 md:py-24">
+             <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <div class="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
+                    <div class="reveal">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Value Proposition</span>
+                        <h2 class="mt-4 text-2xl font-black leading-tight text-slate-900 md:text-4xl">今、私たちがここに集う意味</h2>
                     </div>
 
-                    <!-- Card 2: 一生涯の友 -->
-                    <div class="reveal bg-base-primary p-6 md:p-8 rounded-2xl transition-all duration-300 border border-transparent hover:border-primary-100 hover:bg-white hover:shadow-card-hover group cursor-default" style="transition-delay: 100ms;">
-                        <div class="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center mb-4 md:mb-6 shadow-sm group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 text-primary-500">
-                            <!-- Heroicon: user-group/handshake alt -->
-                            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <div class="reveal border-t border-slate-300 pt-8">
+                        <div class="grid gap-px bg-slate-300 md:grid-cols-2">
+                            <div class="bg-white p-6 md:p-8">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">01</p>
+                                <h3 class="mt-4 text-xl font-bold text-slate-900">志の覚醒とアップデート</h3>
+                                <p class="mt-4 text-sm leading-8 text-slate-700 md:text-base">他者との深い対話を通じて、自分でも気づかなかった本当の志に出会い、磨き上げます。</p>
+                            </div>
+                            <div class="bg-white p-6 md:p-8">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">02</p>
+                                <h3 class="mt-4 text-xl font-bold text-slate-900">5年後、10年後も続く仲間</h3>
+                                <p class="mt-4 text-sm leading-8 text-slate-700 md:text-base">利害関係や損得を抜きに、心で繋がる。イベント後も熱く語り合い、支え合える一生涯の友が見つかります。</p>
+                            </div>
+                            <div class="bg-white p-6 md:p-8">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">03</p>
+                                <h3 class="mt-4 text-xl font-bold text-slate-900">福岡という土壌の探究</h3>
+                                <p class="mt-4 text-sm leading-8 text-slate-700 md:text-base">街全体を巨大な実験場として捉え、その深部に触れることで、新しいビジネスや活動のヒントを得ます。</p>
+                            </div>
+                            <div class="bg-white p-6 md:p-8">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">04</p>
+                                <h3 class="mt-4 text-xl font-bold text-slate-900">最初の一歩</h3>
+                                <p class="mt-4 text-sm leading-8 text-slate-700 md:text-base">熱狂を熱狂で終わらせない。仲間と共に、社会を変える具体的な一歩を踏み出します。</p>
+                            </div>
                         </div>
-                        <h3 class="text-lg font-bold mb-3 md:mb-4 text-primary-500">5年後、10年後も続く仲間</h3>
-                        <p class="text-txt-secondary text-sm leading-relaxed">利害関係や損得を抜きに、心で繋がる。イベントが終わっても、ずっと熱く語り合い、支え合える一生涯の友が見つかります。</p>
-                    </div>
-
-                    <!-- Card 3: 異能の共鳴 -->
-                    <div class="reveal bg-base-primary p-6 md:p-8 rounded-2xl transition-all duration-300 border border-transparent hover:border-primary-100 hover:bg-white hover:shadow-card-hover group cursor-default" style="transition-delay: 200ms;">
-                        <div class="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center mb-4 md:mb-6 shadow-sm group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 text-primary-500">
-                            <!-- Heroicon: spark/puzzle/cube -->
-                            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                        </div>
-                        <h3 class="text-lg font-bold mb-3 md:mb-4 text-primary-500">「福岡」という土壌の探究</h3>
-                        <p class="text-txt-secondary text-sm leading-relaxed">街全体を巨大な実験場として捉え、その深部に触れることで、新しいビジネスや活動のヒントを得ます。</p>
-                    </div>
-
-                    <!-- Card 4: 最初の一歩 -->
-                    <div class="reveal bg-base-primary p-6 md:p-8 rounded-2xl transition-all duration-300 border border-transparent hover:border-primary-100 hover:bg-white hover:shadow-card-hover group cursor-default" style="transition-delay: 300ms;">
-                        <div class="w-12 h-12 md:w-14 md:h-14 bg-white rounded-xl flex items-center justify-center mb-4 md:mb-6 shadow-sm group-hover:scale-110 group-hover:bg-primary-500 group-hover:text-white transition-all duration-300 text-primary-500">
-                            <!-- Heroicon: trending-up/sprout -->
-                            <svg class="w-7 h-7 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                        </div>
-                        <h3 class="text-lg font-bold mb-3 md:mb-4 text-primary-500">最初の一歩</h3>
-                        <p class="text-txt-secondary text-sm leading-relaxed">熱狂を熱狂で終わらせない。仲間と共に、社会を変える具体的な一歩を踏み出します。</p>
                     </div>
                 </div>
              </div>
         </section>
 
         <!-- Section 4: What is Hive -->
-        <section id="about" class="py-16 md:py-32 bg-base-primary relative overflow-hidden">
-            <!-- Decorative background -->
-            <div class="absolute right-0 top-0 w-full md:w-1/2 h-full bg-gradient-to-l from-white to-transparent opacity-50"></div>
-            
-            <div class="container mx-auto px-4 md:px-6 max-w-5xl relative z-10">
-                <div class="grid md:grid-cols-12 gap-8 md:gap-16 items-start">
-                    <!-- sticky container -->
-                    <div class="md:col-span-5 reveal md:sticky md:top-32 mb-8 md:mb-0">
-                        <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">About Us</span>
-                        <h2 class="text-2xl md:text-5xl font-black text-primary-500 mt-3 mb-4 md:mb-8">Hiveとは？</h2>
-                        <div class="h-1.5 w-16 md:w-24 bg-primary-500 rounded mb-4 md:mb-8"></div>
-                        <p class="text-lg md:text-2xl font-bold text-txt-primary leading-relaxed mb-6 md:mb-8">
-                            志を起点に社会の未来を動かす、若者の挑戦コミュニティ
-                        </p>
-                        
-                        <!-- Added Link to Hive Japan -->
-                        <a href="https://hivejapan.org/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 text-white bg-primary-500 px-6 py-3 rounded-full font-bold hover:bg-primary-600 transition-all shadow-lg hover:shadow-xl group w-full md:w-auto justify-center md:justify-start">
-                            Hive Japan 公式サイト
-                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                        </a>
+        <section id="about" class="border-b border-primary-100 bg-[#f4f8fc] py-16 md:py-24">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <div class="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
+                    <div class="reveal">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">About Us</span>
+                        <h2 class="mt-4 text-2xl font-black leading-tight text-slate-900 md:text-4xl">Hiveとは？</h2>
                     </div>
-                    
-                    <div class="md:col-span-7 reveal space-y-8 md:space-y-12">
-                        <p class="text-txt-secondary leading-loose text-justify text-sm md:text-lg">
-                            Hive Japanは、「日本の未来を切り拓く」という使命を掲げ、<strong class="text-primary-500 bg-white px-2 py-1 rounded shadow-sm">志を持った若者が集うコミュニティ</strong>です。私たちは、日本が抱える様々な課題に挑むためには、高い志を持った同世代が「分野横断的」かつ「利害関係に縛られない」形で結びつくことが不可欠だと信じています。
-                        </p>
-                        
-                        <div class="bg-gradient-to-br from-primary-500 to-primary-700 text-white p-6 md:p-10 rounded-2xl shadow-xl relative overflow-hidden group hover:scale-[1.01] transition-transform duration-500">
-                            <!-- Background shapes -->
-                            <div class="absolute top-0 right-0 w-48 h-48 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/2 transition-transform duration-700 group-hover:scale-125"></div>
-                            <div class="absolute bottom-0 left-0 w-32 h-32 bg-white opacity-5 rounded-full translate-y-1/2 -translate-x-1/2 transition-transform duration-700 group-hover:scale-125"></div>
-                            
-                            <h4 class="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center gap-3 relative z-10 font-montserrat tracking-wide">
-                                <span class="w-6 md:w-8 h-1 bg-white rounded"></span>
-                                OUR MISSION
-                            </h4>
-                            <p class="text-primary-50 text-sm md:text-base leading-relaxed text-justify relative z-10 font-medium opacity-90">
-                                課題先進国と呼ばれるようになり、少しずつ沈んでいく「日本」。山積する社会課題を一つ一つ解決して、明るい未来をもたらすためには、志高く考える有志が領域を超えて変革を起こすことが必要だと考えます。<br><br>
-                                ここに集まるのは、まだ志半ばの若者かもしれません。しかし、絶えず考え続け、これからの危機を乗り越え、新しい領域を開拓しようと前進を続ける、熱い魂を持った挑戦者たちです。
-                            </p>
-                        </div>
 
-                        <div class="bg-white border border-primary-100 rounded-xl p-4 md:p-6 shadow-sm">
-                            <p class="text-txt-secondary text-sm md:text-base leading-relaxed md:leading-8">
-                                東京で産声を上げたHiveは、岡山、宮城、インドへと連鎖し、日本、そして世界に「志ある若者の溜まり場」を生み出しています。<br>
-                                いま私たちが福岡でやろうとしているのは、その熱をさらにアップデートすること。<br>
-                                福岡のポテンシャルを活かしながらも、目線は常に外へ。「福岡で挑戦し、ここから世界を塗り替える」。そんな野心を持ったメンバーが混ざり合う、唯一無二の場所を目指しています。
-                            </p>
+                    <div class="reveal border-t border-primary-100 pt-8">
+                        <p class="max-w-3xl text-2xl font-bold leading-relaxed text-slate-900 md:text-[2rem]">
+                            志を起点に社会の未来を動かす、<br>
+                            若者の挑戦コミュニティ。
+                        </p>
+
+                        <div class="mt-8 grid gap-8 md:grid-cols-[1.05fr_0.95fr] md:gap-10">
+                            <div class="space-y-5 text-[15px] leading-8 text-slate-700 md:text-[17px]">
+                                <p>Hive Japanは、「日本の未来を切り拓く」という使命を掲げ、<strong class="font-semibold text-primary-600">志を持った若者が集うコミュニティ</strong>です。私たちは、日本が抱える様々な課題に挑むためには、高い志を持った同世代が分野横断的かつ利害関係に縛られない形で結びつくことが不可欠だと信じています。</p>
+                                <p>東京で産声を上げたHiveは、岡山、宮城、インドへと連鎖し、日本、そして世界に「志ある若者の溜まり場」を生み出しています。</p>
+                                <p>いま私たちが福岡でやろうとしているのは、その熱をさらにアップデートすること。福岡のポテンシャルを活かしながらも、目線は常に外へ。「福岡で挑戦し、ここから世界を塗り替える」。そんな野心を持ったメンバーが混ざり合う、唯一無二の場所を目指しています。</p>
+                            </div>
+
+                            <div class="border-t border-primary-100 pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                                <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Our Mission</p>
+                                <p class="mt-5 text-lg font-semibold leading-relaxed text-slate-900 md:text-xl">
+                                    課題先進国と呼ばれる日本で、<br>
+                                    志高い同世代が領域を超えて変革を起こす。
+                                </p>
+                                <p class="mt-6 text-sm leading-8 text-slate-700 md:text-base">
+                                    ここに集まるのは、まだ志半ばの若者かもしれません。しかし、絶えず考え続け、これからの危機を乗り越え、新しい領域を開拓しようと前進を続ける、熱い魂を持った挑戦者たちです。
+                                </p>
+                                <a href="https://hivejapan.org/" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center gap-3 rounded-full bg-primary-500 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-primary-600">
+                                    Hive Japan 公式サイト
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -866,205 +882,132 @@
         </section>
         
         <!-- Section 5: Achievements -->
-        <section id="achievements" class="py-16 md:py-32 bg-white">
-            <div class="container mx-auto px-4 md:px-6 max-w-6xl">
-                <div class="text-center mb-12 md:mb-20 reveal">
-                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">Track Record</span>
-                    <h2 class="text-2xl md:text-5xl font-black text-primary-500 mt-3">HIVEの活動実績</h2>
-                    <p class="text-txt-secondary text-xs md:text-sm mt-4 max-w-3xl mx-auto leading-relaxed">
-                        2023年より合宿形式のHive Japan Summitを開始しました。以下は、1年を通した活動の流れが伝わるよう、2025年の取り組みを例として紹介しています。
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-20 items-center mb-16 md:mb-24">
-                    <div class="reveal relative px-4 md:px-0 order-2 lg:order-1">
-                         <!-- Image with decoration -->
-                        <div class="absolute inset-0 bg-primary-100 rounded-2xl transform -rotate-3 scale-95 opacity-50 z-0"></div>
-                        <img src="https://lh3.googleusercontent.com/pw/AP1GczN_dzX5bGymPi7jQU9ELH8LGBP2NmZy2XCPO9KdRrOUDAqQBeAK_1eKT4TeI2amQGZMi42HD2U9rKvW9THCRFzjQALGR3U6fLZgnuS7SnzQsYszzlVIpEL_DSm6viugR069NfQ5wEjItFnPr-YwUAA=w567-h364-s-no-gm?authuser=0" alt="HIVEの活動風景" class="relative z-10 rounded-2xl shadow-xl w-full object-cover h-[300px] md:h-[450px] transform transition-transform duration-500 hover:scale-[1.01]">
+        <section id="achievements" class="border-b border-primary-100 bg-white py-16 md:py-24">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <div class="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
+                    <div class="reveal">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Track Record</span>
+                        <h2 class="mt-4 text-2xl font-black leading-tight text-slate-900 md:text-4xl">HIVEの活動実績</h2>
                     </div>
 
-                    <div class="space-y-8 md:space-y-12 reveal order-1 lg:order-2">
-                        <div class="flex gap-4 md:gap-6 group hover:-translate-x-2 transition-transform duration-300">
-                            <div class="flex-shrink-0 w-12 md:w-16 text-right pt-1 font-montserrat">
-                                <span class="text-2xl md:text-4xl font-black text-base-tertiary group-hover:text-primary-500 transition-colors">01</span>
-                            </div>
-                            <div class="border-l-4 border-base-tertiary pl-6 md:pl-8 pb-2 group-hover:border-primary-500 transition-colors duration-500">
-                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-2 md:mb-3">PRE HIVE 2025</h4>
-                                <p class="text-txt-secondary text-sm leading-relaxed">20⼈規模の⼩規模な集まりで信頼関係を構築。共に未来を切り拓く仲間との絆を深める重要な第⼀歩を踏み出しました。</p>
-                            </div>
-                        </div>
+                    <div class="reveal border-t border-primary-100 pt-8">
+                        <p class="max-w-3xl text-sm leading-7 text-slate-600 md:text-base">
+                            2023年より合宿形式のHive Japan Summitを開始しました。以下は、1年を通した活動の流れが伝わるよう、2025年の取り組みを例として紹介しています。
+                        </p>
 
-                        <div class="flex gap-4 md:gap-6 group hover:-translate-x-2 transition-transform duration-300">
-                            <div class="flex-shrink-0 w-12 md:w-16 text-right pt-1 font-montserrat">
-                                <span class="text-2xl md:text-4xl font-black text-base-tertiary group-hover:text-primary-500 transition-colors">02</span>
+                        <div class="mt-10 grid gap-10 md:grid-cols-[0.95fr_1.05fr] md:items-start">
+                            <div>
+                                <img src="https://lh3.googleusercontent.com/pw/AP1GczN_dzX5bGymPi7jQU9ELH8LGBP2NmZy2XCPO9KdRrOUDAqQBeAK_1eKT4TeI2amQGZMi42HD2U9rKvW9THCRFzjQALGR3U6fLZgnuS7SnzQsYszzlVIpEL_DSm6viugR069NfQ5wEjItFnPr-YwUAA=w567-h364-s-no-gm?authuser=0" alt="HIVEの活動風景" class="w-full border border-primary-100 object-cover h-[300px] md:h-[420px]">
                             </div>
-                            <div class="border-l-4 border-base-tertiary pl-6 md:pl-8 pb-2 group-hover:border-primary-500 transition-colors duration-500">
-                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-2 md:mb-3">HIVE JAPAN 2025</h4>
-                                <p class="text-txt-secondary text-sm leading-relaxed">千葉県にて参加者70名の合宿を開催。豪華登壇者との対話や交流を通じ、各⾃の問いに挑む仲間と共に志をアップデートしました。</p>
-                            </div>
-                        </div>
 
-                        <div class="flex gap-4 md:gap-6 group hover:-translate-x-2 transition-transform duration-300">
-                            <div class="flex-shrink-0 w-12 md:w-16 text-right pt-1 font-montserrat">
-                                <span class="text-2xl md:text-4xl font-black text-base-tertiary group-hover:text-primary-500 transition-colors">03</span>
-                            </div>
-                            <div class="border-l-4 border-base-tertiary pl-6 md:pl-8 pb-2 group-hover:border-primary-500 transition-colors duration-500">
-                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-2 md:mb-3">DEEP HIVE 2025</h4>
-                                <p class="text-txt-secondary text-sm leading-relaxed">出会った仲間とより深い関係を築くためのオープンな交流イベント。刺激的な友達と共に最⾼のひとときを過ごす場となりました。</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Regional Hives Section -->
-                <div class="reveal mt-12 md:mt-24 pt-12 md:pt-16 border-t border-base-tertiary">
-                    <h3 class="text-xl md:text-2xl font-bold text-primary-500 mb-8 md:mb-12 text-center font-montserrat tracking-wide">REGIONAL HIVES</h3>
-                    <div class="grid md:grid-cols-2 gap-6 md:gap-12">
-                        <!-- Hive Okayama -->
-                        <a href="https://hivejapan.org/event-1-1-2" target="_blank" rel="noopener noreferrer" class="bg-white rounded-2xl shadow-sm border border-base-tertiary overflow-hidden group hover:shadow-card-hover hover:border-primary-200 transition-all duration-300 flex flex-col transform hover:-translate-y-1">
-                            <div class="relative h-48 md:h-64 overflow-hidden">
-                                <img src="https://i.gyazo.com/73e78eeefd7e1f88d51a19687c8e1738.png" alt="Hive Okayama" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                                <div class="absolute inset-0 bg-primary-900/20 group-hover:bg-transparent transition-colors duration-300"></div>
-                                <div class="absolute bottom-4 left-4">
-                                    <span class="bg-white/90 backdrop-blur text-primary-600 px-3 py-1 rounded text-xs font-bold shadow-sm">OKAYAMA</span>
+                            <div class="divide-y divide-primary-100 border-t border-primary-100 md:border-t-0">
+                                <div class="grid gap-3 py-5 md:grid-cols-[56px_minmax(0,1fr)]">
+                                    <p class="text-2xl font-black text-primary-200 font-montserrat">01</p>
+                                    <div>
+                                        <h4 class="text-lg font-bold text-primary-600">PRE HIVE 2025</h4>
+                                        <p class="mt-2 text-sm leading-7 text-slate-700 md:text-base">20人規模の小規模な集まりで信頼関係を構築。共に未来を切り拓く仲間との絆を深める重要な第一歩を踏み出しました。</p>
+                                    </div>
+                                </div>
+                                <div class="grid gap-3 py-5 md:grid-cols-[56px_minmax(0,1fr)]">
+                                    <p class="text-2xl font-black text-primary-200 font-montserrat">02</p>
+                                    <div>
+                                        <h4 class="text-lg font-bold text-primary-600">HIVE JAPAN 2025</h4>
+                                        <p class="mt-2 text-sm leading-7 text-slate-700 md:text-base">千葉県にて参加者70名の合宿を開催。豪華登壇者との対話や交流を通じ、各自の問いに挑む仲間と共に志をアップデートしました。</p>
+                                    </div>
+                                </div>
+                                <div class="grid gap-3 py-5 md:grid-cols-[56px_minmax(0,1fr)]">
+                                    <p class="text-2xl font-black text-primary-200 font-montserrat">03</p>
+                                    <div>
+                                        <h4 class="text-lg font-bold text-primary-600">DEEP HIVE 2025</h4>
+                                        <p class="mt-2 text-sm leading-7 text-slate-700 md:text-base">出会った仲間とより深い関係を築くためのオープンな交流イベント。刺激的な友達と共に最高のひとときを過ごす場となりました。</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="p-6 md:p-8 flex flex-col flex-grow">
-                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-3 md:mb-4">Hive Okayama</h4>
-                                <p class="text-txt-secondary text-sm leading-relaxed mb-6 md:mb-8 flex-grow">
-                                    岡山で開催された地域展開の第一弾。地元のリーダーたちと共に、地域の未来について熱い議論が交わされました。
-                                </p>
-                                <div class="text-xs text-txt-muted font-medium">REGIONAL HIVES</div>
-                            </div>
-                        </a>
+                        </div>
 
-                        <!-- Hive Miyagi -->
-                        <a href="https://hivejapan.org/event-1-1-1" target="_blank" rel="noopener noreferrer" class="bg-white rounded-2xl shadow-sm border border-base-tertiary overflow-hidden group hover:shadow-card-hover hover:border-primary-200 transition-all duration-300 flex flex-col transform hover:-translate-y-1">
-                            <div class="relative h-48 md:h-64 overflow-hidden">
-                                <img src="https://i.gyazo.com/7ff04b910862e58f17a2fcb9d080db97.png" alt="Hive Miyagi" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                                <div class="absolute inset-0 bg-primary-900/20 group-hover:bg-transparent transition-colors duration-300"></div>
-                                <div class="absolute bottom-4 left-4">
-                                    <span class="bg-white/90 backdrop-blur text-primary-600 px-3 py-1 rounded text-xs font-bold shadow-sm">MIYAGI</span>
-                                </div>
+                        <div class="mt-12 border-t border-primary-100 pt-8">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Regional Hives</p>
+                            <div class="mt-6 grid gap-px bg-primary-100 md:grid-cols-2">
+                                <a href="https://hivejapan.org/event-1-1-2" target="_blank" rel="noopener noreferrer" class="bg-white transition-colors hover:bg-primary-50">
+                                    <img src="https://i.gyazo.com/73e78eeefd7e1f88d51a19687c8e1738.png" alt="Hive Okayama" class="h-52 w-full object-cover">
+                                    <div class="p-6">
+                                        <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Okayama</p>
+                                        <h4 class="mt-3 text-xl font-bold text-slate-900">Hive Okayama</h4>
+                                        <p class="mt-3 text-sm leading-7 text-slate-700">岡山で開催された地域展開の第一弾。地元のリーダーたちと共に、地域の未来について熱い議論が交わされました。</p>
+                                    </div>
+                                </a>
+
+                                <a href="https://hivejapan.org/event-1-1-1" target="_blank" rel="noopener noreferrer" class="bg-white transition-colors hover:bg-primary-50">
+                                    <img src="https://i.gyazo.com/7ff04b910862e58f17a2fcb9d080db97.png" alt="Hive Miyagi" class="h-52 w-full object-cover">
+                                    <div class="p-6">
+                                        <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Miyagi</p>
+                                        <h4 class="mt-3 text-xl font-bold text-slate-900">Hive Miyagi</h4>
+                                        <p class="mt-3 text-sm leading-7 text-slate-700">東北の地、宮城での開催。復興から創造へ。次世代のリーダーたちが集い、新たな希望の灯をともしました。</p>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="p-6 md:p-8 flex flex-col flex-grow">
-                                <h4 class="text-lg md:text-xl font-bold text-primary-500 mb-3 md:mb-4">Hive Miyagi</h4>
-                                <p class="text-txt-secondary text-sm leading-relaxed mb-6 md:mb-8 flex-grow">
-                                    東北の地、宮城での開催。復興から創造へ。次世代のリーダーたちが集い、新たな希望の灯をともしました。
-                                </p>
-                                <div class="text-xs text-txt-muted font-medium">REGIONAL HIVES</div>
-                            </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <!-- Section 6: Speakers -->
-        <section class="py-16 md:py-32 bg-base-primary border-t border-base-tertiary">
-            <div class="container mx-auto px-4 md:px-6 max-w-6xl">
-                <div class="text-center mb-12 md:mb-20 reveal">
-                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-70">Advisors & Speakers</span>
-                    <h2 class="text-2xl md:text-5xl font-black text-primary-500 mt-3">アドバイザー & 過去の登壇者</h2>
-                </div>
-
-                <div class="reveal space-y-12 md:space-y-16">
-                    <!-- Advisors -->
-                    <div>
-                        <div class="flex items-center gap-4 mb-6 md:mb-8 pb-4 border-b border-base-tertiary">
-                            <span class="text-3xl text-primary-500">
-                                <!-- Heroicon: academic-cap -->
-                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
-                            </span>
-                            <h3 class="text-2xl font-bold text-primary-500">アドバイザリーボード</h3>
-                        </div>
-
-                        <div class="grid gap-4 md:gap-6 lg:grid-cols-2">
-                            <!-- Advisor 1 -->
-                            <article class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-base-tertiary hover:border-primary-300 hover:shadow-md transition-all duration-300">
-                                <div class="text-xs text-primary-500 font-bold tracking-wide uppercase bg-primary-50 px-2 py-1 rounded w-fit">Professor</div>
-                                <h4 class="font-black text-lg md:text-xl text-txt-primary mt-4 mb-2">各務 茂夫 氏</h4>
-                                <p class="text-xs md:text-sm text-txt-secondary font-medium">開志専門職大学 学長<br>東京大学 特命教授</p>
-                                <p class="text-xs text-txt-secondary leading-relaxed mt-3">
-                                    大学発スタートアップ育成・起業教育を牽引。産学連携の実務と研究の両面で長年にわたり日本のイノベーション基盤づくりに貢献。
-                                </p>
-                                <details class="mt-4 group">
-                                    <summary class="cursor-pointer select-none text-xs font-bold text-primary-600 hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 rounded w-fit">
-                                        プロフィール詳細を見る
-                                    </summary>
-                                    <div class="mt-3 pt-3 border-t border-base-tertiary text-xs text-txt-secondary leading-relaxed space-y-3">
-                                        <p>一橋大学商学部卒、スイスIMEDE（現IMD）MBA、米国ケースウェスタンリザーブ大学経営学博士。ボストンコンサルティンググループを経て1986年にコーポレイトディレクション（CDI）を設立。学位取得後、ハイドリック＆ストラグル社パートナーに就任。</p>
-                                        <p>2002年に東京大学大学院薬学系研究科教員、2004年に東京大学産学連携本部 教授・事業化推進部長、2013年に同本部 教授・イノベーション推進部長、2020年に東京大学大学院工学系研究科教授・産学協創推進本部副本部長を歴任。大学発スタートアップ育成・支援、起業相談、アントレプレナーシップ教育、研究者向けイノベーション人材育成に取り組む。2025年4月より現職。</p>
-                                        <p>一般社団法人日本ベンチャー学会会長（2020年1月〜2024年12月）、日本ベンチャー学会 第1回松田修一賞受賞（2015年）、NPO法人アイセックジャパン代表理事・会長（2013年4月〜2025年3月）。</p>
-                                    </div>
-                                </details>
-                            </article>
-
-                            <!-- Advisor 2 -->
-                            <article class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-base-tertiary hover:border-primary-300 hover:shadow-md transition-all duration-300">
-                                <div class="text-xs text-primary-500 font-bold tracking-wide uppercase bg-primary-50 px-2 py-1 rounded w-fit">Professor / Ex-Vice Minister</div>
-                                <h4 class="font-black text-lg md:text-xl text-txt-primary mt-4 mb-2">鈴木 寛 氏</h4>
-                                <p class="text-xs md:text-sm text-txt-secondary font-medium">東京大学教授<br>元文部科学副大臣</p>
-                                <p class="text-xs text-txt-secondary leading-relaxed mt-3">
-                                    政策・教育・アカデミアを横断し、次世代教育改革を推進。アクティブ・ラーニングや入試改革を現場実装へつなげた実行者。
-                                </p>
-                                <details class="mt-4 group">
-                                    <summary class="cursor-pointer select-none text-xs font-bold text-primary-600 hover:text-primary-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 rounded w-fit">
-                                        プロフィール詳細を見る
-                                    </summary>
-                                    <div class="mt-3 pt-3 border-t border-base-tertiary text-xs text-txt-secondary leading-relaxed space-y-3">
-                                        <p>東京大学法学部卒業後、通商産業省に入省。慶應義塾大学助教授を経て、国会議員を12年間務め、文部科学副大臣を2期歴任。</p>
-                                        <p>2015年より文部科学大臣補佐官を4期務め、アクティブ・ラーニングの導入を推進。新学習指導要領の改訂、40年ぶりの大学入学制度改革に尽力。</p>
-                                        <p>現在は東京大学教授、OECD教育2030理事を兼務。全国マイプロジェクト実行委員会 実行委員長。</p>
-                                    </div>
-                                </details>
-                            </article>
-                        </div>
+        <section class="border-b border-primary-100 bg-[#f7fbff] py-16 md:py-24">
+            <div class="mx-auto max-w-6xl px-4 md:px-6">
+                <div class="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
+                    <div class="reveal">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Advisors & Speakers</span>
+                        <h2 class="mt-4 text-2xl font-black leading-tight text-slate-900 md:text-4xl">アドバイザー & 過去の登壇者</h2>
                     </div>
 
-                    <!-- Past Speakers -->
-                    <div>
-                        <div class="flex items-center gap-4 mb-6 md:mb-8 pb-4 border-b border-base-tertiary">
-                            <span class="text-3xl text-primary-500">
-                                <!-- Heroicon: microphone -->
-                                <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
-                            </span>
-                            <h3 class="text-2xl font-bold text-primary-500">過去の登壇者</h3>
-                        </div>
+                    <div class="reveal border-t border-primary-100 pt-8 space-y-12">
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Advisory Board</p>
+                            <div class="mt-6 grid gap-px bg-primary-100 lg:grid-cols-2">
+                                <article class="bg-white p-6 md:p-8">
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Professor</p>
+                                    <h4 class="mt-4 text-xl font-black text-slate-900">各務 茂夫 氏</h4>
+                                    <p class="mt-2 text-sm font-medium leading-7 text-slate-600">開志専門職大学 学長 / 東京大学 特命教授</p>
+                                    <p class="mt-4 text-sm leading-7 text-slate-700">大学発スタートアップ育成・起業教育を牽引。産学連携の実務と研究の両面で長年にわたり日本のイノベーション基盤づくりに貢献。</p>
+                                </article>
 
-                        <p class="text-txt-secondary mb-8 text-sm">日本のトップランナーたちと、対等な立場で未来を語り合えるのもHiveの魅力です。以下は登壇者の一部で、ほかにも多数の方々にご登壇いただいています。</p>
-
-                        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-                            <!-- Speaker 1 -->
-                            <div class="bg-white p-5 rounded-xl shadow-sm border border-base-tertiary hover:border-primary-300 transition-all duration-300 hover:-translate-y-1">
-                                <span class="text-[10px] font-bold text-white bg-primary-500 px-2 py-0.5 rounded-full mb-3 inline-block">HIVE JAPAN</span>
-                                <h4 class="font-bold text-lg text-txt-primary mb-1">鈴木 健 氏</h4>
-                                <p class="text-xs text-txt-muted">スマートニュース共同創業者</p>
-                            </div>
-
-                            <!-- Speaker 2 -->
-                            <div class="bg-white p-5 rounded-xl shadow-sm border border-base-tertiary hover:border-primary-300 transition-all duration-300 hover:-translate-y-1">
-                                <span class="text-[10px] font-bold text-white bg-primary-500 px-2 py-0.5 rounded-full mb-3 inline-block">HIVE JAPAN</span>
-                                <h4 class="font-bold text-lg text-txt-primary mb-1">田久保 善彦 氏</h4>
-                                <p class="text-xs text-txt-muted">グロービス経営大学院 副学長</p>
-                            </div>
-
-                            <!-- Speaker 3 -->
-                            <div class="bg-white p-5 rounded-xl shadow-sm border border-base-tertiary hover:border-primary-300 transition-all duration-300 hover:-translate-y-1">
-                                <span class="text-[10px] font-bold text-white bg-primary-500 px-2 py-0.5 rounded-full mb-3 inline-block">HIVE JAPAN</span>
-                                <h4 class="font-bold text-lg text-txt-primary mb-1">熊谷 俊人 氏</h4>
-                                <p class="text-xs text-txt-muted">千葉県知事</p>
-                            </div>
-
-                            <!-- Speaker 4 -->
-                            <div class="bg-white p-5 rounded-xl shadow-sm border border-base-tertiary hover:border-primary-300 transition-all duration-300 hover:-translate-y-1">
-                                <span class="text-[10px] font-bold text-txt-secondary bg-base-tertiary px-2 py-0.5 rounded-full mb-3 inline-block">HIVE OKAYAMA</span>
-                                <h4 class="font-bold text-lg text-txt-primary mb-1">伊原木 隆太 氏</h4>
-                                <p class="text-xs text-txt-muted">岡山県知事</p>
+                                <article class="bg-white p-6 md:p-8">
+                                    <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Professor / Ex-Vice Minister</p>
+                                    <h4 class="mt-4 text-xl font-black text-slate-900">鈴木 寛 氏</h4>
+                                    <p class="mt-2 text-sm font-medium leading-7 text-slate-600">東京大学教授 / 元文部科学副大臣</p>
+                                    <p class="mt-4 text-sm leading-7 text-slate-700">政策・教育・アカデミアを横断し、次世代教育改革を推進。アクティブ・ラーニングや入試改革を現場実装へつなげた実行者。</p>
+                                </article>
                             </div>
                         </div>
-                        <p class="text-xs text-txt-muted mt-6 md:mt-8">※ そのほかにも多数の方々にご登壇いただいています。</p>
+
+                        <div class="border-t border-primary-100 pt-8">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Past Speakers</p>
+                            <p class="mt-4 text-sm leading-7 text-slate-600">日本のトップランナーたちと、対等な立場で未来を語り合えるのもHiveの魅力です。以下は登壇者の一部で、ほかにも多数の方々にご登壇いただいています。</p>
+                            <div class="mt-6 grid gap-px bg-primary-100 sm:grid-cols-2 lg:grid-cols-4">
+                                <div class="bg-white p-5">
+                                    <span class="text-[10px] font-bold text-primary-600 uppercase tracking-[0.24em] font-montserrat">Hive Japan</span>
+                                    <h4 class="mt-3 text-lg font-bold text-slate-900">鈴木 健 氏</h4>
+                                    <p class="mt-1 text-sm text-slate-600">スマートニュース共同創業者</p>
+                                </div>
+                                <div class="bg-white p-5">
+                                    <span class="text-[10px] font-bold text-primary-600 uppercase tracking-[0.24em] font-montserrat">Hive Japan</span>
+                                    <h4 class="mt-3 text-lg font-bold text-slate-900">田久保 善彦 氏</h4>
+                                    <p class="mt-1 text-sm text-slate-600">グロービス経営大学院 副学長</p>
+                                </div>
+                                <div class="bg-white p-5">
+                                    <span class="text-[10px] font-bold text-primary-600 uppercase tracking-[0.24em] font-montserrat">Hive Japan</span>
+                                    <h4 class="mt-3 text-lg font-bold text-slate-900">熊谷 俊人 氏</h4>
+                                    <p class="mt-1 text-sm text-slate-600">千葉県知事</p>
+                                </div>
+                                <div class="bg-white p-5">
+                                    <span class="text-[10px] font-bold text-primary-600 uppercase tracking-[0.24em] font-montserrat">Hive Okayama</span>
+                                    <h4 class="mt-3 text-lg font-bold text-slate-900">伊原木 隆太 氏</h4>
+                                    <p class="mt-1 text-sm text-slate-600">岡山県知事</p>
+                                </div>
+                            </div>
+                            <p class="mt-5 text-xs text-slate-500">※ そのほかにも多数の方々にご登壇いただいています。</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1072,88 +1015,70 @@
 
         <!-- Section 7: Why Fukuoka -->
         <!-- Updated background to main blue gradient -->
-        <section id="why-fukuoka" class="py-16 md:py-32 bg-gradient-to-br from-primary-600 to-primary-800 text-white relative overflow-hidden">
-            <!-- Background effects -->
-            <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center mix-blend-overlay opacity-10"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-primary-800/90 via-primary-600/50 to-transparent"></div>
+        <section id="why-fukuoka" class="py-16 md:py-24 bg-gradient-to-b from-primary-50 to-white relative overflow-hidden border-y border-primary-100">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(5,92,173,0.08),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(95,162,228,0.10),transparent_26%)]"></div>
 
             <div class="container mx-auto px-4 md:px-6 max-w-6xl relative z-10">
-                <div class="text-center mb-12 md:mb-20 reveal">
-                    <span class="text-primary-200 font-bold tracking-widest uppercase text-xs font-montserrat opacity-80">Location</span>
-                    <h2 class="text-2xl md:text-5xl font-black mt-3 text-white">なぜ、今回の舞台は「福岡」なのか</h2>
-                    <p class="text-sm md:text-xl text-primary-100 mt-4 md:mt-6 font-medium">福岡には、挑戦を後押しする熱量があります。</p>
+                <div class="reveal max-w-4xl">
+                    <span class="text-primary-500 font-bold tracking-widest uppercase text-xs font-montserrat opacity-80">Location</span>
+                    <h2 class="text-2xl md:text-4xl font-black mt-3 text-slate-900">なぜ、今回の舞台は「福岡」なのか</h2>
+                    <p class="text-sm md:text-lg text-slate-600 mt-4 font-medium">福岡には、挑戦を後押しする熱量があります。</p>
                 </div>
                 
-                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Feature 1: 挑戦者を愛する温かさ -->
-                    <div class="reveal bg-white/10 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20 hover:border-primary-300 hover:bg-white/20 transition-all duration-300 group hover:-translate-y-1">
-                        <div class="text-3xl md:text-4xl mb-4 md:mb-6 text-primary-200 group-hover:text-white transition-colors">
-                            <!-- Heroicon: heart -->
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-primary-100 mt-10">
+                    <div class="reveal bg-white p-6 md:p-8">
+                        <div class="text-primary-500 mb-4 md:mb-6">
                             <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                         </div>
-                        <h3 class="text-lg font-bold mb-3 text-white">挑戦者を愛する温かさ</h3>
-                        <p class="text-primary-100 text-sm leading-relaxed">「失敗しても、よかよか。」挑戦者を面白がり、背中を押してくれる温かいお節介。</p>
+                        <h3 class="text-lg font-bold mb-3 text-slate-900">挑戦者を愛する温かさ</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">「失敗しても、よかよか。」挑戦者を面白がり、背中を押してくれる温かいお節介。</p>
                     </div>
 
-                    <!-- Feature 2: 暮らしと挑戦の共鳴 -->
-                    <div class="reveal bg-white/10 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20 hover:border-primary-300 hover:bg-white/20 transition-all duration-300 group hover:-translate-y-1" style="transition-delay: 100ms;">
-                        <div class="text-3xl md:text-4xl mb-4 md:mb-6 text-primary-200 group-hover:text-white transition-colors">
-                            <!-- Heroicon: office-building/sun -->
+                    <div class="reveal bg-white p-6 md:p-8" style="transition-delay: 100ms;">
+                        <div class="text-primary-500 mb-4 md:mb-6">
                             <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                         </div>
-                        <h3 class="text-lg font-bold mb-3 text-white">暮らしと挑戦の共鳴</h3>
-                        <p class="text-primary-100 text-sm leading-relaxed">都市の利便性と豊かな自然。仕事も遊びも全力で楽しむ生き方。</p>
+                        <h3 class="text-lg font-bold mb-3 text-slate-900">暮らしと挑戦の共鳴</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">都市の利便性と豊かな自然。仕事も遊びも全力で楽しむ生き方が、挑戦を日常に近づける。</p>
                     </div>
 
-                    <!-- Feature 3: 巨大な実験場 -->
-                    <div class="reveal bg-white/10 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20 hover:border-primary-300 hover:bg-white/20 transition-all duration-300 group hover:-translate-y-1" style="transition-delay: 200ms;">
-                        <div class="text-3xl md:text-4xl mb-4 md:mb-6 text-primary-200 group-hover:text-white transition-colors">
-                            <!-- Heroicon: fire -->
+                    <div class="reveal bg-white p-6 md:p-8" style="transition-delay: 200ms;">
+                        <div class="text-primary-500 mb-4 md:mb-6">
                             <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"></path></svg>
                         </div>
-                        <h3 class="text-lg font-bold mb-3 text-white">巨大な実験場</h3>
-                        <p class="text-primary-100 text-sm leading-relaxed">スタートアップも老舗も、「まずはやってみよう」で動き出すスピード感。</p>
+                        <h3 class="text-lg font-bold mb-3 text-slate-900">巨大な実験場</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">スタートアップも老舗も、「まずはやってみよう」で動き出すスピード感がある。</p>
                     </div>
 
-                    <!-- Feature 4: アジアとの交差 -->
-                    <div class="reveal bg-white/10 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-white/20 hover:border-primary-300 hover:bg-white/20 transition-all duration-300 group hover:-translate-y-1" style="transition-delay: 300ms;">
-                        <div class="text-3xl md:text-4xl mb-4 md:mb-6 text-primary-200 group-hover:text-white transition-colors">
-                            <!-- Heroicon: globe-alt -->
+                    <div class="reveal bg-white p-6 md:p-8" style="transition-delay: 300ms;">
+                        <div class="text-primary-500 mb-4 md:mb-6">
                             <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
                         </div>
-                        <h3 class="text-lg font-bold mb-3 text-white">アジアとの交差</h3>
-                        <p class="text-primary-100 text-sm leading-relaxed">多様な「異物」が混ざり合い、熱狂を生んできた歴史。</p>
+                        <h3 class="text-lg font-bold mb-3 text-slate-900">アジアとの交差</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">多様な「異物」が混ざり合い、熱狂を生んできた歴史がある。</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Section 8: Final Message -->
-        <section id="message" class="py-16 md:py-32 bg-white">
-            <div class="container mx-auto px-4 md:px-6 max-w-4xl text-center">
-                <div class="reveal">
-                    <h2 class="text-2xl md:text-4xl font-black text-primary-500 mb-8 md:mb-16">最後に、あなたへ</h2>
-                    
-                    <div class="relative bg-base-primary p-8 md:p-16 rounded-3xl shadow-card border border-base-tertiary text-left overflow-hidden">
-                        <!-- 装飾アイコンの位置と透明度を調整し、文字とかぶらないように修正 -->
-                        <svg class="absolute top-4 left-4 md:top-8 md:left-8 w-16 h-16 md:w-20 md:h-20 text-primary-200 opacity-20 pointer-events-none" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9C9.00001 15 9.00001 15 9.00001 15C9.00001 11.2312 11.2313 9 15.0001 9H16V5H15.0001C9.47716 5 5 9.47715 5 15V21H14.017ZM21.017 21L21.017 18C21.017 16.8954 20.1216 16 19.017 16H16C16 15 16 15 16 15C16 11.2312 18.2313 9 22.0001 9H23V5H22.0001C16.4772 5 12 9.47715 12 15V21H21.017Z"/></svg>
-                        
-                        <div class="space-y-8 md:space-y-10 text-txt-primary leading-loose relative z-10 text-base md:text-lg">
-                            <div class="text-center relative">
-                                <p class="text-lg md:text-3xl font-bold text-primary-500 inline-block relative z-10 py-2">
-                                    あなたの熱量を、<br class="md:hidden">ぶつけに来てください。
-                                </p>
-                            </div>
+        <section id="message" class="border-b border-primary-100 bg-white py-16 md:py-24">
+            <div class="mx-auto max-w-5xl px-4 md:px-6">
+                <div class="reveal border-t border-primary-100 pt-8">
+                    <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Final Message</span>
+                    <div class="mt-6 grid gap-8 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
+                        <div>
+                            <h2 class="text-2xl font-black leading-tight text-slate-900 md:text-4xl">最後に、あなたへ</h2>
+                        </div>
 
+                        <div class="space-y-6 text-base leading-8 text-slate-700 md:text-lg">
+                            <p class="text-xl font-bold leading-relaxed text-primary-600 md:text-2xl">あなたの熱量を、ぶつけに来てください。</p>
                             <p>1人では考えても、なかなか行動に踏み出せないかもしれない。本気の時ほど、不格好で、なりふりなんてかまっていられない。不安と戦いながら前に進むことは容易ではありません。</p>
                             <p>不格好なあなたを、私たちは歓迎します。運営している私たち自身も、不格好ながら前に進もうとしている仲間だからです。</p>
-                            <p>挫けそうになった時、"世間"に呑まれそうになった時。同じように熱く進もうとする仲間の存在が、心の炎を何度でも燃え盛らせてくれるはずです。</p>
-                            
-                            <div class="border-t border-base-tertiary my-8 md:my-10"></div>
-                            
-                            <div class="text-center">
-                                <p class="font-medium mb-6 text-sm md:text-base">この福岡という土地での語らいが、未来につながる大きな一歩になることを願って。<br>一緒に、語らいましょう。そして、踏み出しましょう。</p>
-                                <p class="text-xl md:text-2xl font-bold text-primary-500">あなたの参加を、心からお待ちしています。</p>
+                            <p>挫けそうになった時、世間に呑まれそうになった時。同じように熱く進もうとする仲間の存在が、心の炎を何度でも燃え盛らせてくれるはずです。</p>
+                            <div class="border-t border-primary-100 pt-6">
+                                <p class="text-sm leading-7 text-slate-600 md:text-base">この福岡という土地での語らいが、未来につながる大きな一歩になることを願って。一緒に、語らいましょう。そして、踏み出しましょう。</p>
+                                <p class="mt-5 text-xl font-bold text-primary-600 md:text-2xl">あなたの参加を、心からお待ちしています。</p>
                             </div>
                         </div>
                     </div>
@@ -1164,36 +1089,42 @@
     </main>
     
     <!-- Footer -->
-    <footer id="contact" class="bg-primary-900 text-white pt-20 pb-10 border-t border-primary-800">
-        <div class="container mx-auto px-6 text-center">
-            
-            <div class="inline-block px-5 py-2 rounded-full bg-primary-800 border border-primary-700 text-primary-300 text-xs font-bold tracking-[0.2em] mb-8">
-                INVITATION ONLY
-            </div>
+    <footer id="contact" class="border-t border-primary-100 bg-[#f4f8fc] py-16 md:py-20">
+        <div class="mx-auto max-w-6xl px-4 md:px-6">
+            <div class="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Contact</span>
+                    <h2 class="mt-4 text-2xl font-black leading-tight text-slate-900 md:text-4xl">Hive Fukuoka 2026</h2>
+                </div>
 
-            <h2 class="text-3xl font-black mb-6 font-montserrat tracking-tight">Hive Fukuoka 2026</h2>
-            <p class="mb-12 max-w-xl mx-auto text-primary-300 text-sm leading-relaxed">
-                Hive Fukuokaへの参加にはコミュニティメンバーによる推薦が必要です。
-            </p>
-            
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8 text-sm text-primary-300 mb-16 font-montserrat">
-                <a href="https://hivejapan.org" target="_blank" rel="noopener noreferrer" class="hover:text-white transition flex items-center gap-2 group">
-                    <span class="p-2 bg-primary-800 rounded-full group-hover:bg-primary-700 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
-                    </span>
-                    hivejapan.org
-                </a>
-                <span class="hidden md:inline text-primary-700">|</span>
-                <span class="hover:text-white transition flex items-center gap-2 group">
-                    <span class="p-2 bg-primary-800 rounded-full group-hover:bg-primary-700 transition">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </span>
-                    hive.fukuoka@gmail.com
-                </span>
-            </div>
+                <div class="border-t border-primary-100 pt-8">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <span class="inline-flex border border-primary-200 bg-white px-4 py-2 text-[10px] font-bold uppercase tracking-[0.24em] text-primary-600 font-montserrat">
+                            Invitation Only
+                        </span>
+                        <p class="text-sm leading-7 text-slate-600 md:text-base">
+                            Hive Fukuokaへの参加には、コミュニティメンバーによる推薦が必要です。
+                        </p>
+                    </div>
 
-            <div class="border-t border-primary-800 pt-8 text-xs text-primary-500">
-                &copy; 2026 Hive Fukuoka. All Rights Reserved.
+                    <div class="mt-8 grid gap-px bg-primary-100 md:grid-cols-2">
+                        <a href="https://hivejapan.org" target="_blank" rel="noopener noreferrer" class="bg-white px-6 py-6 transition-colors hover:bg-primary-50">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Official Site</p>
+                            <p class="mt-3 text-lg font-bold text-slate-900">hivejapan.org</p>
+                            <p class="mt-2 text-sm leading-7 text-slate-600">Hive Japanの活動全体や他地域の展開もこちらから確認できます。</p>
+                        </a>
+
+                        <div class="bg-white px-6 py-6">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.28em] text-primary-500 font-montserrat">Contact</p>
+                            <p class="mt-3 text-lg font-bold text-slate-900">hive.fukuoka@gmail.com</p>
+                            <p class="mt-2 text-sm leading-7 text-slate-600">参加についてのご相談やお問い合わせは、こちらまでご連絡ください。</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 border-t border-primary-100 pt-6 text-xs text-slate-500">
+                        &copy; 2026 Hive Fukuoka. All Rights Reserved.
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
